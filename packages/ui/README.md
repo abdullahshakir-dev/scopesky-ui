@@ -1,14 +1,15 @@
 # @scopesky/ui
 
-Hand-written React components for ScopeSky websites, styled with Tailwind CSS v4.
+Hand-written React components for ScopeSky websites, styled with Tailwind CSS.
 No third-party UI code: buttons, fields, data tables, menus, overlays, feedback
 and conversation parts, plus a ScopeSky icon set. Arabic / RTL ready, light and
 dark themes.
 
 ## Requirements
 
-- React 19
-- Tailwind CSS v4 in the consuming app (Next.js 15+ recommended)
+- React 18 or 19
+- Any build setup. With Tailwind CSS v4 you get the tokens as Tailwind classes;
+  without it (Tailwind v3, Vite, plain CSS) use the ready-made stylesheet.
 
 ## Install
 
@@ -17,6 +18,10 @@ npm i @scopesky/ui
 ```
 
 ## Set up the styles
+
+Pick one of the two options.
+
+### Option A: your app uses Tailwind CSS v4
 
 In your global stylesheet, right after Tailwind:
 
@@ -29,6 +34,20 @@ That one import brings the ScopeSky color tokens, the 10px radius
 (`rounded-box`), animations and base rules, and adds the package to Tailwind's
 class scanning. You can then use the tokens in your own markup too:
 `bg-primary`, `text-ink`, `text-ink-2`, `border-line`, `bg-layer`, `rounded-box`.
+
+### Option B: Tailwind v3, or no Tailwind
+
+Import the ready-made stylesheet once, in your entry file, **after** your own CSS:
+
+```tsx
+// main.jsx / main.tsx
+import "./index.css";
+import "@scopesky/ui/ui.css";
+```
+
+It holds every class the components use plus the ScopeSky tokens as CSS
+variables (`var(--primary)`, `var(--text)` …). It has no CSS reset of its own,
+so your app's reset stays as it is. Don't use Option A's import as well.
 
 ## Use components
 
