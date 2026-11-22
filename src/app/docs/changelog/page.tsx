@@ -5,6 +5,22 @@ export const metadata: Metadata = { title: "Changelog" };
 
 const releases = [
   {
+    version: "3.0.0",
+    date: "22 November 2026",
+    notes: [
+      "Breaking: every input works controlled (value + onValueChange / onCheckedChange) or uncontrolled (defaultValue), takes a name so plain form submits include it, and forwards its ref (react-hook-form's register now works on React 18).",
+      "Breaking: DataTable takes columns and data of any shape, with selection, batch actions, sorting, filtering, loading and a manual mode for server-side data. StructuredList and BarChart are generic too.",
+      "Breaking: Modal uses open / onOpenChange with separate onPrimaryClick and onSecondaryClick; AlertDialog has onAction (and waits for a returned promise); Notification has actionText + onAction.",
+      "Breaking: FileUploader no longer fakes uploads. It checks accept and maxSize, reports the files, and shows the status you set.",
+      "Breaking: one naming scheme for callbacks (onValueChange, onCheckedChange, onOpenChange, onSelectedChange, onItemSelect). Menus, tiles, tags, tabs, accordions, trees and pagination can all be controlled.",
+      "New LocaleProvider with English and Arabic text for everything the components write themselves.",
+      "Most components accept className. Internal helpers (sampleRows, sBtn, fieldBox) are no longer exported.",
+      "Icons are tree-shakable: importing one icon no longer bundles all 95.",
+      "The icons are from Lucide. The package now ships Lucide's ISC / MIT notice in THIRD_PARTY_NOTICES.md, and the license no longer claims them.",
+      "Source maps are no longer published (they pointed to files that weren't in the package).",
+    ],
+  },
+  {
     version: "2.0.0",
     date: "22 November 2026",
     notes: [
