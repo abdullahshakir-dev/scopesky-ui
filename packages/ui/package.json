@@ -1,6 +1,6 @@
 {
   "name": "@scopesky/ui",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "ScopeSky design system for React: 80+ hand-written components styled with Tailwind CSS v4, ScopeSky color tokens, light and dark themes, Arabic / RTL support and 95 SVG icons. No third-party UI dependencies.",
   "keywords": [
     "scopesky",

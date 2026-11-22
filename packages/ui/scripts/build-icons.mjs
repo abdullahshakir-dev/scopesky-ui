@@ -18,7 +18,9 @@ for (const file of files) {
   if (!body) throw new Error(`Could not read shapes from ${file}`);
   const shapes = [...body.matchAll(/<(path|circle|rect|line|polyline|polygon|ellipse)\b([^>]*?)\/?>/g)].map(([, tag, attrs]) => {
     const a = {};
-    for (const [, k, v] of attrs.matchAll(/([a-zA-Z-]+)="([^"]*)"/g)) a[k] = v;
+    // Attribute names can contain digits (x1, y2), so allow them after the first letter.
+    for (const [, k, v] of attrs.matchAll(/([a-zA-Z][a-zA-Z0-9:-]*)="([^"]*)"/g)) a[k] = v;
+    if (!Object.keys(a).length) throw new Error(`A <${tag}> in ${file} has no attributes`);
     return [tag, a];
   });
   if (!shapes.length) throw new Error(`No shapes found in ${file}`);
