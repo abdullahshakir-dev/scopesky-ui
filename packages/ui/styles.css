@@ -1,0 +1,264 @@
+/*
+ * @scopesky/ui styles. Import once, right after Tailwind:
+ *
+ *   @import "tailwindcss";
+ *   @import "@scopesky/ui/styles.css";
+ *
+ * Holds the ScopeSky color tokens (light, dark and the four preview themes),
+ * the 10px radius (rounded-box), fonts, animations and base rules.
+ * Set data-theme="dark" on <html> for dark mode.
+ */
+
+/* Let Tailwind find the class names used inside the package. */
+@source "./dist";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root,
+[data-theme="light"],
+[data-ui-theme="white"],
+[data-ui-theme="g10"] {
+  --canvas: #eef1f5;
+  --background: #ffffff;
+  --layer: #f4f7fa;
+  --layer-2: #ffffff;
+  --layer-hover: #eaeef3;
+  --layer-selected: #e2e8f0;
+  --field: #f4f7fa;
+  --field-hover: #eaeef3;
+  --border-subtle: #e2e8f0;
+  --border: #cbd5e1;
+  --border-strong: #64748b;
+  --text: #0f172a;
+  --text-2: #475569;
+  --text-3: #5e6e84;
+  --placeholder: #64748b;
+  --text-on-color: #ffffff;
+  --primary: #006b9b;
+  --primary-hover: #00547b;
+  --primary-active: #004969;
+  --link: #006b9b;
+  --link-hover: #00547b;
+  --focus: #0183be;
+  --accent: #0094da;
+  --eyebrow: #004969;
+  --tint: #eaf7fd;
+  --tint-2: #cdebfa;
+  --inverse: #1e293b;
+  --inverse-text: #f1f5f9;
+  --code-bg: #f4f7fa;
+  --overlay: rgb(15 23 42 / 0.45);
+  --success: #24a148;
+  --success-strong: #15803d;
+  --success-bg: #defbe6;
+  --success-text: #0e6027;
+  --warning: #f1c21b;
+  --warning-strong: #b45309;
+  --warning-bg: #fcf4d6;
+  --warning-text: #8a3c04;
+  --danger: #da1e28;
+  --danger-strong: #b91c1c;
+  --danger-bg: #fff1f1;
+  --danger-text: #a2191f;
+  --info: #0183be;
+  --info-bg: #eaf7fd;
+  --info-text: #004969;
+  color-scheme: light;
+}
+
+[data-ui-theme="g10"] {
+  --background: #f4f7fa;
+  --layer: #ffffff;
+  --layer-2: #f4f7fa;
+  --layer-hover: #eaeef3;
+  --layer-selected: #e2e8f0;
+  --field: #ffffff;
+  --field-hover: #eaeef3;
+  --code-bg: #ffffff;
+  color-scheme: light;
+}
+
+[data-theme="dark"],
+[data-ui-theme="g100"],
+[data-ui-theme="g90"] {
+  --canvas: #0a0a0a;
+  --background: #111111;
+  --layer: #1b1d20;
+  --layer-2: #24272b;
+  --layer-hover: #2a2e33;
+  --layer-selected: #33383e;
+  --field: #1b1d20;
+  --field-hover: #2a2e33;
+  --border-subtle: #2a2e33;
+  --border: #3a4048;
+  --border-strong: #8592a3;
+  --text: #f1f5f9;
+  --text-2: #cbd5e1;
+  --text-3: #a3afbf;
+  --placeholder: #8592a3;
+  --text-on-color: #ffffff;
+  --primary: #006b9b;
+  --primary-hover: #00547b;
+  --primary-active: #004969;
+  --link: #65c0e9;
+  --link-hover: #9dd8f3;
+  --focus: #65c0e9;
+  --accent: #2ba7df;
+  --eyebrow: #65c0e9;
+  --tint: #0b2a3a;
+  --tint-2: #0f3a50;
+  --inverse: #f1f5f9;
+  --inverse-text: #0f172a;
+  --code-bg: #1b1d20;
+  --overlay: rgb(0 0 0 / 0.6);
+  --success: #42be65;
+  --success-strong: #15803d;
+  --success-bg: #0f2a18;
+  --success-text: #6fdc8c;
+  --warning: #f1c21b;
+  --warning-strong: #b45309;
+  --warning-bg: #2e2508;
+  --warning-text: #f1c21b;
+  --danger: #fa4d56;
+  --danger-strong: #b91c1c;
+  --danger-bg: #2d1214;
+  --danger-text: #ff8389;
+  --info: #65c0e9;
+  --info-bg: #0b2a3a;
+  --info-text: #9dd8f3;
+  color-scheme: dark;
+}
+
+[data-ui-theme="g90"] {
+  --background: #1e2125;
+  --layer: #2a2e33;
+  --layer-2: #33383e;
+  --layer-hover: #3a4048;
+  --layer-selected: #454c55;
+  --field: #2a2e33;
+  --field-hover: #3a4048;
+  --border-subtle: #3a4048;
+  --border: #4b525c;
+  --code-bg: #2a2e33;
+}
+
+@theme {
+  --radius-box: 10px;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-bg: var(--background);
+  --color-layer: var(--layer);
+  --color-layer-2: var(--layer-2);
+  --color-layer-hover: var(--layer-hover);
+  --color-layer-selected: var(--layer-selected);
+  --color-field: var(--field);
+  --color-field-hover: var(--field-hover);
+  --color-line: var(--border-subtle);
+  --color-line-2: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-ink: var(--text);
+  --color-ink-2: var(--text-2);
+  --color-ink-3: var(--text-3);
+  --color-placeholder: var(--placeholder);
+  --color-on-color: var(--text-on-color);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-active: var(--primary-active);
+  --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
+  --color-focus: var(--focus);
+  --color-accent: var(--accent);
+  --color-eyebrow: var(--eyebrow);
+  --color-tint: var(--tint);
+  --color-tint-2: var(--tint-2);
+  --color-inverse: var(--inverse);
+  --color-inverse-ink: var(--inverse-text);
+  --color-code: var(--code-bg);
+  --color-overlay: var(--overlay);
+  --color-success: var(--success);
+  --color-success-strong: var(--success-strong);
+  --color-success-bg: var(--success-bg);
+  --color-success-text: var(--success-text);
+  --color-warning: var(--warning);
+  --color-warning-strong: var(--warning-strong);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-text: var(--warning-text);
+  --color-danger: var(--danger);
+  --color-danger-strong: var(--danger-strong);
+  --color-danger-bg: var(--danger-bg);
+  --color-danger-text: var(--danger-text);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+  --color-info-text: var(--info-text);
+
+  --font-sans: var(--font-geist, ui-sans-serif), var(--font-readex, system-ui), sans-serif;
+  --font-mono: var(--font-geist-mono, ui-monospace), "SFMono-Regular", monospace;
+
+  --animate-rise: rise 900ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  --animate-fade: fade 160ms ease-out both;
+  --animate-pop: pop 160ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  --animate-slide-in: slide-in 220ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  --animate-slide-up: slide-up 240ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  --animate-shimmer: shimmer 1.4s linear infinite;
+}
+
+@keyframes rise {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pop {
+  from { opacity: 0; transform: translateY(4px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes slide-in {
+  from { transform: translateX(100%); }
+  to { transform: none; }
+}
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@layer base {
+  body {
+    background: var(--canvas);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 1px;
+  }
+
+  ::selection {
+    background: var(--tint-2);
+    color: var(--text);
+  }
+}
+
+@utility scroll-slim {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}

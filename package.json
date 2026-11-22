@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run build:ui && next dev",
+    "dev:ui": "npm run dev -w @scopesky/ui",
+    "build:ui": "npm run build -w @scopesky/ui && node scripts/gen-props.mjs",
+    "build": "npm run build:ui && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "pack:ui": "npm pack -w @scopesky/ui --pack-destination ."
   },
   "dependencies": {
+    "@scopesky/ui": "*",
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0"
@@ -22,5 +26,8 @@
     "eslint-config-next": "16.4.6",
     "tailwindcss": "4.3.3",
     "typescript": "^5"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

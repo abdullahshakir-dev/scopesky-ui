@@ -1,0 +1,2216 @@
+{
+ "Icon": [
+  {
+   "name": "name",
+   "type": "'filter' | 'x' | 'alert-triangle' | 'archive' | 'arrow-down' | 'arrow-left' | 'arrow-right' | 'arrow-up-down' | 'arrow-up' | 'bell' | 'bold' | 'book-open' | 'box' | 'boxes' | 'calendar-days' | 'calendar' | 'check-circle-2' | 'check' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'chevron-up' | 'circle-alert' | 'circle-dashed' | 'circle-x' | 'clipboard-list' | 'clock' | 'code' | 'copy' | 'corner-down-left' | 'credit-card' | 'database' | 'download' | 'external-link' | 'eye-off' | 'eye' | 'file-check' | 'file-search' | 'file-text' | 'file' | 'folder-open' | 'folder-plus' | 'folder' | 'globe' | 'grid-3x3' | 'grip-vertical' | 'history' | 'house' | 'image' | 'inbox' | 'info' | 'italic' | 'languages' | 'layers' | 'layout-grid' | 'layout-template' | 'lightbulb' | 'link' | 'list' | 'loader-2' | 'lock' | 'log-out' | 'mail' | 'maximize-2' | 'menu' | 'minimize-2' | 'minus' | 'moon' | 'more-horizontal' | 'more-vertical' | 'palette' | 'panel-left' | 'paperclip' | 'plus' | 'rotate-ccw' | 'search-x' | 'search' | 'settings' | 'share-2' | 'shield-check' | 'smile' | 'sparkles' | 'square-pen' | 'star' | 'sun' | 'tag' | 'thumbs-up' | 'trash-2' | 'underline' | 'upload' | 'user-circle' | 'user-plus' | 'user' | 'users' | 'wifi'",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "size",
+   "type": "number",
+   "default": "24",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "ButtonGroup": [
+  {
+   "name": "options",
+   "type": "string[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "value",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onChange",
+   "type": "(v: string) => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "ToggleButton": [
+  {
+   "name": "pressed",
+   "type": "boolean",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onPressedChange",
+   "type": "(p: boolean) => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "CopyButton": [
+  {
+   "name": "value",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "\"Copy\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Link": [
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "href",
+   "type": "string",
+   "default": "\"#\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "inline",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "icon",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onClick",
+   "type": "(() => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Button": [
+  {
+   "name": "kind",
+   "type": "'primary' | 'secondary' | 'tertiary' | 'ghost' | 'danger' | 'danger--tertiary' | 'danger--ghost'",
+   "default": "\"primary\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "size",
+   "type": "'sm' | 'md' | 'lg' | 'xl'",
+   "default": "\"lg\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "icon",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "iconOnly",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "full",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "FieldShell": [
+  {
+   "name": "id",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "invalid",
+   "type": "string | false",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "warn",
+   "type": "string | false",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "disabled",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "counter",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideLabel",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "TextInput": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "invalid",
+   "type": "string | false",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "warn",
+   "type": "string | false",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "size",
+   "type": "'sm' | 'md' | 'lg'",
+   "default": "\"md\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideLabel",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "trailing",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "leading",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "PasswordInput": [
+  {
+   "name": "size",
+   "type": "'sm' | 'md' | 'lg'",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "invalid",
+   "type": "string | false",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "warn",
+   "type": "string | false",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideLabel",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "leading",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "TextArea": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "invalid",
+   "type": "string | false",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "maxCount",
+   "type": "number",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "NumberInput": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "min",
+   "type": "number",
+   "default": "0",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "max",
+   "type": "number",
+   "default": "100",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "step",
+   "type": "number",
+   "default": "1",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "number",
+   "default": "1",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Search": [
+  {
+   "name": "placeholder",
+   "type": "string",
+   "default": "\"Search\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "size",
+   "type": "'sm' | 'md' | 'lg'",
+   "default": "\"md\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "expandable",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Select": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "options",
+   "type": "string[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Dropdown": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "options",
+   "type": "string[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "initial",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "ComboBox": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "options",
+   "type": "string[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "placeholder",
+   "type": "string",
+   "default": "\"Type to filter\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "MultiSelect": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "options",
+   "type": "string[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "initial",
+   "type": "string[]",
+   "default": "[]",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "CheckBoxGlyph": [
+  {
+   "name": "checked",
+   "type": "boolean",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "indeterminate",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Checkbox": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "checked",
+   "type": "boolean",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onChange",
+   "type": "(c: boolean) => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "disabled",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "indeterminate",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideLabel",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "RadioGroup": [
+  {
+   "name": "legend",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "options",
+   "type": "string[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "value",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onChange",
+   "type": "(v: string) => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "orientation",
+   "type": "'vertical' | 'horizontal'",
+   "default": "\"vertical\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "labels",
+   "type": "Record<string, string>",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Toggle": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "checked",
+   "type": "boolean",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onChange",
+   "type": "(c: boolean) => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onText",
+   "type": "string",
+   "default": "\"On\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "offText",
+   "type": "string",
+   "default": "\"Off\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "size",
+   "type": "'sm' | 'md'",
+   "default": "\"md\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "disabled",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "ContentSwitcher": [
+  {
+   "name": "options",
+   "type": "string[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "value",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onChange",
+   "type": "(v: string) => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Slider": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "min",
+   "type": "number",
+   "default": "0",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "max",
+   "type": "number",
+   "default": "100",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "number",
+   "default": "40",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "unit",
+   "type": "string",
+   "default": "\"\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Calendar": [
+  {
+   "name": "value",
+   "type": "Date | null",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onPick",
+   "type": "(d: Date) => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "DatePicker": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "TimePicker": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "FileUploader": [
+  {
+   "name": "title",
+   "type": "string",
+   "default": "\"Upload files\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "note",
+   "type": "string",
+   "default": "\"Max file size is 5 MB. Supported file types are .pdf, .jpg and .png.\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "FormGroup": [
+  {
+   "name": "legend",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "FluidInput": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "placeholder",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "invalid",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "InputGroup": [
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "prefix",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "suffix",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "InputOTP": [
+  {
+   "name": "length",
+   "type": "number",
+   "default": "6",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "\"Verification code\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Notification": [
+  {
+   "name": "title",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "kind",
+   "type": "'info' | 'success' | 'warning' | 'error'",
+   "default": "\"info\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "subtitle",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "variant",
+   "type": "'inline' | 'toast'",
+   "default": "\"inline\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "action",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onClose",
+   "type": "(() => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "lowContrast",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Modal": [
+  {
+   "name": "open",
+   "type": "boolean",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onClose",
+   "type": "() => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "heading",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "primary",
+   "type": "string",
+   "default": "\"Save\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "secondary",
+   "type": "string",
+   "default": "\"Cancel\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "danger",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "size",
+   "type": "'sm' | 'md' | 'xs'",
+   "default": "\"sm\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "ProgressBar": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "value",
+   "type": "number",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "max",
+   "type": "number",
+   "default": "100",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "status",
+   "type": "'error' | 'active' | 'finished'",
+   "default": "\"active\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "size",
+   "type": "'big' | 'small'",
+   "default": "\"big\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "ProgressIndicator": [
+  {
+   "name": "steps",
+   "type": "{ label: string; note?: string; invalid?: boolean; }[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "current",
+   "type": "number",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "vertical",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Loading": [
+  {
+   "name": "size",
+   "type": "'small' | 'large'",
+   "default": "\"large\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "\"Loading\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "InlineLoading": [
+  {
+   "name": "state",
+   "type": "'error' | 'active' | 'finished'",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "text",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Skeleton": [
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Tooltip": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "side",
+   "type": "'top' | 'bottom'",
+   "default": "\"top\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "DefinitionTooltip": [
+  {
+   "name": "term",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "definition",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Popover": [
+  {
+   "name": "trigger",
+   "type": "(props: { onClick: () => void; 'aria-expanded': boolean; 'aria-controls': string; }) => ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "align",
+   "type": "'end' | 'start'",
+   "default": "\"start\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "caret",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Toggletip": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "AILabel": [
+  {
+   "name": "size",
+   "type": "'sm' | 'md' | 'xs'",
+   "default": "\"sm\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Empty": [
+  {
+   "name": "icon",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "title",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "body",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "action",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Tag": [
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "type",
+   "type": "'gray' | 'blue' | 'green' | 'red' | 'warm' | 'cyan' | 'outline'",
+   "default": "\"gray\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onDismiss",
+   "type": "(() => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "size",
+   "type": "'sm' | 'md' | 'lg'",
+   "default": "\"md\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "selected",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onSelect",
+   "type": "(() => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Kbd": [
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "DataTable": [
+  {
+   "name": "rows",
+   "type": "Row[]",
+   "default": "sampleRows",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "selectable",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "zebra",
+   "type": "boolean",
+   "default": "false",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "size",
+   "type": "'sm' | 'md' | 'lg'",
+   "default": "\"lg\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "title",
+   "type": "string",
+   "default": "\"Service requests\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "description",
+   "type": "string",
+   "default": "\"Requests opened in the last 30 days.\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "tone",
+   "type": "'grey' | 'sky'",
+   "default": "\"grey\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "StructuredList": [
+  {
+   "name": "rows",
+   "type": "{ plan: string; speed: string; price: string; }[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "selectable",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "ContainedList": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "items",
+   "type": "string[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "action",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "List": [
+  {
+   "name": "items",
+   "type": "(string | { text: string; children: string[]; })[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "ordered",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "TreeView": [
+  {
+   "name": "nodes",
+   "type": "TreeNode[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Tile": [
+  {
+   "name": "title",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "body",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "variant",
+   "type": "'base' | 'clickable' | 'selectable' | 'expandable'",
+   "default": "\"base\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "selected",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onSelect",
+   "type": "(() => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Accordion": [
+  {
+   "name": "items",
+   "type": "{ title: string; body: string; }[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "align",
+   "type": "'end' | 'start'",
+   "default": "\"end\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "size",
+   "type": "'sm' | 'md' | 'lg'",
+   "default": "\"md\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "flush",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "CodeSnippet": [
+  {
+   "name": "code",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "type",
+   "type": "'inline' | 'single' | 'multi'",
+   "default": "\"multi\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Attachment": [
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "meta",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "kind",
+   "type": "'file' | 'image'",
+   "default": "\"file\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "progress",
+   "type": "number",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Avatar": [
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "size",
+   "type": "'sm' | 'md' | 'lg'",
+   "default": "\"md\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "status",
+   "type": "'online' | 'away' | 'offline'",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "src",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "AvatarGroup": [
+  {
+   "name": "names",
+   "type": "string[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Item": [
+  {
+   "name": "title",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "media",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "description",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "actions",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "variant",
+   "type": "'outline' | 'default' | 'muted'",
+   "default": "\"outline\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Carousel": [
+  {
+   "name": "slides",
+   "type": "{ title: string; body: string; }[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "BarChart": [
+  {
+   "name": "data",
+   "type": "{ label: string; a: number; b: number; }[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Bubble": [
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "from",
+   "type": "'me' | 'them'",
+   "default": "\"them\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "tone",
+   "type": "'error' | 'default'",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Marker": [
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "variant",
+   "type": "'divider' | 'status' | 'system'",
+   "default": "\"divider\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Message": [
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "time",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "from",
+   "type": "'me' | 'them'",
+   "default": "\"them\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "footer",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "MessageScroller": [
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Trace": [
+  {
+   "name": "steps",
+   "type": "{ label: string; detail: string; state: 'done' | 'running' | 'pending'; }[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Tabs": [
+  {
+   "name": "tabs",
+   "type": "{ label: string; content: ReactNode; disabled?: boolean; }[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "variant",
+   "type": "'line' | 'contained'",
+   "default": "\"line\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Breadcrumb": [
+  {
+   "name": "items",
+   "type": "string[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "noTrailingSlash",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Pagination": [
+  {
+   "name": "total",
+   "type": "number",
+   "default": "237",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "pageSizes",
+   "type": "number[]",
+   "default": "[10, 20, 50]",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "PaginationNav": [
+  {
+   "name": "pages",
+   "type": "number",
+   "default": "12",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "MenuList": [
+  {
+   "name": "items",
+   "type": "MenuItem[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onPick",
+   "type": "(l: string) => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "OverflowMenu": [
+  {
+   "name": "items",
+   "type": "MenuItem[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "\"Options\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onPick",
+   "type": "((l: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "align",
+   "type": "'end' | 'start'",
+   "default": "\"end\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "vertical",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "MenuButton": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "items",
+   "type": "MenuItem[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "kind",
+   "type": "'primary' | 'tertiary' | 'ghost'",
+   "default": "\"primary\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onPick",
+   "type": "((l: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "ContextMenuArea": [
+  {
+   "name": "items",
+   "type": "MenuItem[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Menubar": [
+  {
+   "name": "menus",
+   "type": "{ label: string; items: MenuItem[]; }[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "NavigationMenu": [
+  {
+   "name": "items",
+   "type": "{ label: string; links?: { title: string; body: string; }[]; }[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Command": [
+  {
+   "name": "groups",
+   "type": "{ heading: string; items: { label: string; icon?: ReactNode; shortcut?: string; }[]; }[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "placeholder",
+   "type": "string",
+   "default": "\"Type a command or search…\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "UIShell": [
+  {
+   "name": "product",
+   "type": "string",
+   "default": "\"ScopeSky\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "portal",
+   "type": "string",
+   "default": "\"Customer portal\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "AlertDialog": [
+  {
+   "name": "open",
+   "type": "boolean",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onOpenChange",
+   "type": "(o: boolean) => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "title",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "description",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "cancel",
+   "type": "string",
+   "default": "\"Cancel\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "action",
+   "type": "string",
+   "default": "\"Delete\"",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Sheet": [
+  {
+   "name": "open",
+   "type": "boolean",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onOpenChange",
+   "type": "(o: boolean) => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "title",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "side",
+   "type": "'right' | 'left'",
+   "default": "\"right\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "description",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "footer",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Drawer": [
+  {
+   "name": "open",
+   "type": "boolean",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onOpenChange",
+   "type": "(o: boolean) => void",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "title",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "description",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "footer",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "HoverCard": [
+  {
+   "name": "trigger",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "AspectRatio": [
+  {
+   "name": "ratio",
+   "type": "number",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Collapsible": [
+  {
+   "name": "title",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "preview",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "rest",
+   "type": "string[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "Resizable": [
+  {
+   "name": "start",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "end",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  }
+ ],
+ "ScrollArea": [
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Separator": [
+  {
+   "name": "orientation",
+   "type": "'vertical' | 'horizontal'",
+   "default": "\"horizontal\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "decorative",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": ""
+  }
+ ]
+}

@@ -1,0 +1,82 @@
+{
+  "name": "@scopesky/ui",
+  "version": "2.0.0",
+  "description": "ScopeSky UI: hand-written React components styled with Tailwind CSS, with ScopeSky tokens, Arabic / RTL support and an SVG icon set.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "icons",
+    "styles.css",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./button": {
+      "types": "./dist/button.d.ts",
+      "default": "./dist/button.js"
+    },
+    "./conversation": {
+      "types": "./dist/conversation.d.ts",
+      "default": "./dist/conversation.js"
+    },
+    "./data": {
+      "types": "./dist/data.d.ts",
+      "default": "./dist/data.js"
+    },
+    "./feedback": {
+      "types": "./dist/feedback.d.ts",
+      "default": "./dist/feedback.js"
+    },
+    "./fields": {
+      "types": "./dist/fields.d.ts",
+      "default": "./dist/fields.js"
+    },
+    "./navigation": {
+      "types": "./dist/navigation.d.ts",
+      "default": "./dist/navigation.js"
+    },
+    "./overlays": {
+      "types": "./dist/overlays.d.ts",
+      "default": "./dist/overlays.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks.d.ts",
+      "default": "./dist/hooks.js"
+    },
+    "./icons": {
+      "types": "./dist/icons.d.ts",
+      "default": "./dist/icons.js"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "default": "./dist/utils.js"
+    },
+    "./styles.css": "./styles.css",
+    "./icons/*.svg": "./icons/*.svg",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "icons": "node scripts/build-icons.mjs",
+    "build": "node scripts/build-icons.mjs && node scripts/clean.mjs && tsc -p tsconfig.json",
+    "dev": "node scripts/build-icons.mjs && tsc -p tsconfig.json --watch --preserveWatchOutput",
+    "typecheck": "node scripts/build-icons.mjs && tsc -p tsconfig.json --noEmit",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "typescript": "^5"
+  }
+}

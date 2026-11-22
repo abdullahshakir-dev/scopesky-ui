@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# built package output
+/packages/ui/dist
+/packages/ui/src/icon-data.ts
+*.tgz
