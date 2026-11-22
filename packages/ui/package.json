@@ -1,8 +1,31 @@
 {
   "name": "@scopesky/ui",
-  "version": "2.0.0",
-  "description": "ScopeSky UI: hand-written React components styled with Tailwind CSS, with ScopeSky tokens, Arabic / RTL support and an SVG icon set.",
-  "license": "UNLICENSED",
+  "version": "2.1.0",
+  "description": "ScopeSky design system for React: 80+ hand-written components styled with Tailwind CSS v4, ScopeSky color tokens, light and dark themes, Arabic / RTL support and 95 SVG icons. No third-party UI dependencies.",
+  "keywords": [
+    "scopesky",
+    "react",
+    "tailwindcss",
+    "tailwind",
+    "components",
+    "design-system",
+    "ui",
+    "rtl",
+    "arabic",
+    "icons",
+    "nextjs"
+  ],
+  "author": "ScopeSky Communications",
+  "homepage": "https://github.com/abdullahshakir-dev/scopesky-ui#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdullahshakir-dev/scopesky-ui.git",
+    "directory": "packages/ui"
+  },
+  "bugs": {
+    "url": "https://github.com/abdullahshakir-dev/scopesky-ui/issues"
+  },
+  "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "sideEffects": [
     "*.css"
@@ -11,7 +34,8 @@
     "dist",
     "icons",
     "styles.css",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -78,5 +102,9 @@
   "devDependencies": {
     "@types/react": "^19",
     "typescript": "^5"
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://registry.npmjs.org/"
   }
 }
