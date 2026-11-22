@@ -284,26 +284,26 @@ function useMenu() {
 }
 
 export function OverflowMenu({ items, label = "Options", onPick, align = "end", vertical = true }: { items: MenuItem[]; label?: string; onPick?: (l: string) => void; align?: "start" | "end"; vertical?: boolean }) {
-  const m = useMenu();
+  const { open, setOpen, ref, openAndFocus } = useMenu();
   return (
-    <div ref={m.ref} className="relative inline-flex">
+    <div ref={ref} className="relative inline-flex">
       <button
         type="button"
         aria-label={label}
         aria-haspopup="menu"
-        aria-expanded={m.open}
-        onClick={() => (m.open ? m.setOpen(false) : m.openAndFocus())}
-        className={cn("inline-flex size-10 items-center justify-center rounded-box text-ink hover:bg-layer-hover", m.open && "bg-layer-hover")}
+        aria-expanded={open}
+        onClick={() => (open ? setOpen(false) : openAndFocus())}
+        className={cn("inline-flex size-10 items-center justify-center rounded-box text-ink hover:bg-layer-hover", open && "bg-layer-hover")}
       >
         {vertical ? <MoreVertical className="size-4" /> : <MoreHorizontal className="size-4" />}
       </button>
-      {m.open && (
+      {open && (
         <div className={cn("absolute top-full z-40 mt-1", align === "end" ? "end-0" : "start-0")}>
           <MenuList
             items={items}
             label={label}
             onPick={(l) => {
-              m.setOpen(false);
+              setOpen(false);
               onPick?.(l);
             }}
           />
@@ -314,14 +314,14 @@ export function OverflowMenu({ items, label = "Options", onPick, align = "end", 
 }
 
 export function MenuButton({ label, items, kind = "primary", onPick }: { label: string; items: MenuItem[]; kind?: "primary" | "tertiary" | "ghost"; onPick?: (l: string) => void }) {
-  const m = useMenu();
+  const { open, setOpen, ref, openAndFocus } = useMenu();
   return (
-    <div ref={m.ref} className="relative inline-flex">
+    <div ref={ref} className="relative inline-flex">
       <button
         type="button"
         aria-haspopup="menu"
-        aria-expanded={m.open}
-        onClick={() => (m.open ? m.setOpen(false) : m.openAndFocus())}
+        aria-expanded={open}
+        onClick={() => (open ? setOpen(false) : openAndFocus())}
         className={cn(
           "inline-flex h-10 items-center gap-6 rounded-box px-4 text-sm font-medium transition-colors",
           kind === "primary" && "bg-primary text-on-color hover:bg-primary-hover",
@@ -330,15 +330,15 @@ export function MenuButton({ label, items, kind = "primary", onPick }: { label: 
         )}
       >
         {label}
-        <ChevronDown className={cn("size-4 transition-transform", m.open && "rotate-180")} />
+        <ChevronDown className={cn("size-4 transition-transform", open && "rotate-180")} />
       </button>
-      {m.open && (
+      {open && (
         <div className="absolute start-0 top-full z-40 mt-1 w-full min-w-48">
           <MenuList
             items={items}
             label={label}
             onPick={(l) => {
-              m.setOpen(false);
+              setOpen(false);
               onPick?.(l);
             }}
           />
