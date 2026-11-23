@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+# Cancel an older run on the same branch when a newer commit is pushed.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Lint and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # Builds @scopesky/ui, regenerates the props docs, then builds the Next.js site.
+      - name: Build
+        run: npm run build
+
+      - name: Check generated files are committed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::The build changed tracked files. Run 'npm run build' locally and commit the result."
+            git status --short
+            git diff --stat
+            exit 1
+          fi
