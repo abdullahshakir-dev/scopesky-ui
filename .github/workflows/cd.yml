@@ -1,4 +1,4 @@
-name: Publish to npm
+name: CD
 
 # Release: bump "version" in packages/ui/package.json, commit, then
 #   git tag ui-v3.0.0 && git push origin ui-v3.0.0
@@ -23,11 +23,11 @@ jobs:
 
     steps:
       - name: Check out
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # Node 24 ships npm 11, which supports trusted publishing.
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
