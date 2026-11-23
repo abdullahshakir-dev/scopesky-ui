@@ -2,8 +2,15 @@ ScopeSky UI License
 
 Copyright (c) 2026 ScopeSky Communications. All rights reserved.
 
-This software and its source code, styles, icons and documentation (the
-"Software") are the property of ScopeSky Communications ("ScopeSky").
+This software and its source code, styles and documentation (the "Software")
+are the property of ScopeSky Communications ("ScopeSky").
+
+Third-party material. The icons (the SVG files in `icons/` and the icon data
+built from them) are not ScopeSky's property. They come from Lucide and are
+licensed under the ISC License, with some icons also under the MIT License
+(Feather). Those licenses, reproduced in THIRD_PARTY_NOTICES.md, apply to the
+icons instead of this license, and nothing in this license limits the rights
+they grant. THIRD_PARTY_NOTICES.md must be kept with any copy of the icons.
 
 1. Permitted use. ScopeSky, its employees, and contractors working on ScopeSky
    projects may install, use, copy and modify the Software to build and run

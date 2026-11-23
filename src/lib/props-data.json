@@ -10,7 +10,23 @@
   {
    "name": "size",
    "type": "number",
-   "default": "24",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "LocaleProvider": [
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "messages",
+   "type": "Partial<Messages>",
+   "default": "",
    "required": false,
    "description": ""
   }
@@ -18,7 +34,14 @@
  "ButtonGroup": [
   {
    "name": "options",
-   "type": "string[]",
+   "type": "readonly SelectOption[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
    "default": "",
    "required": true,
    "description": ""
@@ -27,51 +50,28 @@
    "name": "value",
    "type": "string",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
-   "name": "onChange",
-   "type": "(v: string) => void",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "label",
+   "name": "defaultValue",
    "type": "string",
    "default": "",
-   "required": true,
-   "description": ""
-  }
- ],
- "ToggleButton": [
-  {
-   "name": "pressed",
-   "type": "boolean",
-   "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
-   "name": "onPressedChange",
-   "type": "(p: boolean) => void",
+   "name": "onValueChange",
+   "type": "((value: string) => void)",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
-   "name": "label",
+   "name": "className",
    "type": "string",
    "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "children",
-   "type": "ReactNode",
-   "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   }
  ],
@@ -86,43 +86,20 @@
   {
    "name": "label",
    "type": "string",
-   "default": "\"Copy\"",
-   "required": false,
-   "description": ""
-  }
- ],
- "Link": [
-  {
-   "name": "children",
-   "type": "ReactNode",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
-   "name": "href",
+   "name": "onCopy",
+   "type": "((ok: boolean) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
    "type": "string",
-   "default": "\"#\"",
-   "required": false,
-   "description": ""
-  },
-  {
-   "name": "inline",
-   "type": "boolean",
-   "default": "",
-   "required": false,
-   "description": ""
-  },
-  {
-   "name": "icon",
-   "type": "ReactNode",
-   "default": "",
-   "required": false,
-   "description": ""
-  },
-  {
-   "name": "onClick",
-   "type": "(() => void)",
    "default": "",
    "required": false,
    "description": ""
@@ -165,6 +142,59 @@
    "description": ""
   }
  ],
+ "ToggleButton": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": "Accessible name and tooltip; the button usually shows only an icon."
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "pressed",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultPressed",
+   "type": "boolean",
+   "default": "false",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onPressedChange",
+   "type": "((pressed: boolean) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Link": [
+  {
+   "name": "inline",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "icon",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
  "FieldShell": [
   {
    "name": "id",
@@ -196,14 +226,14 @@
   },
   {
    "name": "invalid",
-   "type": "string | false",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
   },
   {
    "name": "warn",
-   "type": "string | false",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
@@ -228,36 +258,372 @@
    "default": "",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "CheckBoxGlyph": [
+  {
+   "name": "checked",
+   "type": "boolean",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "indeterminate",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "RadioGroup": [
+  {
+   "name": "legend",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "options",
+   "type": "readonly SelectOption[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "value",
+   "type": "string | null",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "string | null",
+   "default": "null",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((value: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "required",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "disabled",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "orientation",
+   "type": "'vertical' | 'horizontal'",
+   "default": "\"vertical\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "ContentSwitcher": [
+  {
+   "name": "options",
+   "type": "readonly SelectOption[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "value",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((value: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "Calendar": [
+  {
+   "name": "value",
+   "type": "Date | null",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "Date | null",
+   "default": "null",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((date: Date) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "min",
+   "type": "Date",
+   "default": "",
+   "required": false,
+   "description": "Days before `min` or after `max` can't be picked."
+  },
+  {
+   "name": "max",
+   "type": "Date",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "FileUploader": [
+  {
+   "name": "title",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "note",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "accept",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Same format as the native accept attribute: \".pdf,.png,image/*\"."
+  },
+  {
+   "name": "maxSize",
+   "type": "number",
+   "default": "",
+   "required": false,
+   "description": "Largest allowed file in bytes. Bigger files are listed with an error and not passed to onFilesAdded."
+  },
+  {
+   "name": "multiple",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "disabled",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Sends the valid files with a plain form submit (multipart/form-data)."
+  },
+  {
+   "name": "value",
+   "type": "UploadItem[]",
+   "default": "",
+   "required": false,
+   "description": "The listed files. Update an item's status / progress / error as your upload runs."
+  },
+  {
+   "name": "defaultValue",
+   "type": "UploadItem[]",
+   "default": "NO_ITEMS",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((items: UploadItem[]) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onFilesAdded",
+   "type": "((items: UploadItem[]) => void)",
+   "default": "",
+   "required": false,
+   "description": "The files that passed the checks, each time the user adds some. Start your uploads here."
+  },
+  {
+   "name": "onRemove",
+   "type": "((item: UploadItem) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "FormGroup": [
+  {
+   "name": "legend",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "InputGroup": [
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "prefix",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "suffix",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "TextInput": [
   {
    "name": "label",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
   },
   {
    "name": "helper",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
   },
   {
    "name": "invalid",
-   "type": "string | false",
+   "type": "ReactNode",
    "default": "",
    "required": false,
-   "description": ""
+   "description": "Error text. Shows the field in its error state."
   },
   {
    "name": "warn",
-   "type": "string | false",
+   "type": "ReactNode",
    "default": "",
    "required": false,
-   "description": ""
+   "description": "Warning text."
   },
   {
    "name": "size",
@@ -298,31 +664,31 @@
   },
   {
    "name": "label",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
   },
   {
    "name": "helper",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
   },
   {
    "name": "invalid",
-   "type": "string | false",
+   "type": "ReactNode",
    "default": "",
    "required": false,
-   "description": ""
+   "description": "Error text. Shows the field in its error state."
   },
   {
    "name": "warn",
-   "type": "string | false",
+   "type": "ReactNode",
    "default": "",
    "required": false,
-   "description": ""
+   "description": "Warning text."
   },
   {
    "name": "hideLabel",
@@ -342,21 +708,28 @@
  "TextArea": [
   {
    "name": "label",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
   },
   {
    "name": "helper",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
   },
   {
    "name": "invalid",
-   "type": "string | false",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideLabel",
+   "type": "boolean",
    "default": "",
    "required": false,
    "description": ""
@@ -366,20 +739,34 @@
    "type": "number",
    "default": "",
    "required": false,
-   "description": ""
+   "description": "Shows a \"12/300\" counter and limits the length."
   }
  ],
  "NumberInput": [
   {
    "name": "label",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
    "name": "helper",
-   "type": "string",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "invalid",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideLabel",
+   "type": "boolean",
    "default": "",
    "required": false,
    "description": ""
@@ -387,14 +774,14 @@
   {
    "name": "min",
    "type": "number",
-   "default": "0",
+   "default": "",
    "required": false,
    "description": ""
   },
   {
    "name": "max",
    "type": "number",
-   "default": "100",
+   "default": "",
    "required": false,
    "description": ""
   },
@@ -406,20 +793,55 @@
    "description": ""
   },
   {
+   "name": "value",
+   "type": "number | null",
+   "default": "",
+   "required": false,
+   "description": "null when the field is empty."
+  },
+  {
    "name": "defaultValue",
-   "type": "number",
-   "default": "1",
+   "type": "number | null",
+   "default": "null",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((value: number | null) => void)",
+   "default": "",
    "required": false,
    "description": ""
   }
  ],
  "Search": [
   {
-   "name": "placeholder",
+   "name": "value",
    "type": "string",
-   "default": "\"Search\"",
+   "default": "",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "string",
+   "default": "\"\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((value: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onSearch",
+   "type": "((value: string) => void)",
+   "default": "",
+   "required": false,
+   "description": "Called when the user presses Enter."
   },
   {
    "name": "size",
@@ -433,34 +855,55 @@
    "type": "boolean",
    "default": "",
    "required": false,
-   "description": ""
+   "description": "Starts as an icon button and opens on click."
   }
  ],
  "Select": [
   {
-   "name": "label",
-   "type": "string",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
    "name": "options",
-   "type": "string[]",
+   "type": "readonly SelectOption[]",
    "default": "",
    "required": true,
    "description": ""
   },
   {
-   "name": "helper",
-   "type": "string",
+   "name": "label",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
   },
   {
-   "name": "defaultValue",
+   "name": "helper",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "invalid",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideLabel",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "placeholder",
    "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Shown while nothing is chosen; the user can't pick it again."
+  },
+  {
+   "name": "onValueChange",
+   "type": "((value: string) => void)",
    "default": "",
    "required": false,
    "description": ""
@@ -468,21 +911,49 @@
  ],
  "Dropdown": [
   {
+   "name": "options",
+   "type": "readonly SelectOption[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
    "name": "label",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "value",
+   "type": "string | null",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "string | null",
+   "default": "null",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((value: string | null) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "name",
    "type": "string",
    "default": "",
-   "required": true,
-   "description": ""
+   "required": false,
+   "description": "Adds a hidden input so the value is sent with a plain form submit."
   },
   {
-   "name": "options",
-   "type": "string[]",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "initial",
+   "name": "placeholder",
    "type": "string",
    "default": "",
    "required": false,
@@ -490,6 +961,48 @@
   },
   {
    "name": "helper",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "invalid",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "disabled",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "required",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideLabel",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "id",
    "type": "string",
    "default": "",
    "required": false,
@@ -498,61 +1011,213 @@
  ],
  "ComboBox": [
   {
-   "name": "label",
-   "type": "string",
+   "name": "options",
+   "type": "readonly SelectOption[]",
    "default": "",
    "required": true,
    "description": ""
   },
   {
-   "name": "options",
-   "type": "string[]",
+   "name": "onInputChange",
+   "type": "((query: string) => void)",
    "default": "",
-   "required": true,
+   "required": false,
+   "description": "Called as the user types, for example to load options from a server."
+  },
+  {
+   "name": "filter",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": "Set to false when you filter `options` yourself (for example on the server)."
+  },
+  {
+   "name": "label",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
    "description": ""
+  },
+  {
+   "name": "value",
+   "type": "string | null",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "string | null",
+   "default": "null",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((value: string | null) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Adds a hidden input so the value is sent with a plain form submit."
   },
   {
    "name": "placeholder",
    "type": "string",
-   "default": "\"Type to filter\"",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "invalid",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "disabled",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "required",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideLabel",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "id",
+   "type": "string",
+   "default": "",
    "required": false,
    "description": ""
   }
  ],
  "MultiSelect": [
   {
-   "name": "label",
-   "type": "string",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
    "name": "options",
-   "type": "string[]",
+   "type": "readonly SelectOption[]",
    "default": "",
    "required": true,
    "description": ""
   },
   {
-   "name": "initial",
-   "type": "string[]",
-   "default": "[]",
+   "name": "label",
+   "type": "ReactNode",
+   "default": "",
    "required": false,
    "description": ""
-  }
- ],
- "CheckBoxGlyph": [
+  },
   {
-   "name": "checked",
-   "type": "boolean",
+   "name": "value",
+   "type": "string[]",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
-   "name": "indeterminate",
+   "name": "defaultValue",
+   "type": "string[]",
+   "default": "EMPTY",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((value: string[]) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Adds a hidden input so the value is sent with a plain form submit."
+  },
+  {
+   "name": "placeholder",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "invalid",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "disabled",
    "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "required",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideLabel",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "id",
+   "type": "string",
    "default": "",
    "required": false,
    "description": ""
@@ -561,7 +1226,7 @@
  "Checkbox": [
   {
    "name": "label",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
@@ -570,19 +1235,19 @@
    "name": "checked",
    "type": "boolean",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
-   "name": "onChange",
-   "type": "(c: boolean) => void",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "disabled",
+   "name": "defaultChecked",
    "type": "boolean",
+   "default": "false",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onCheckedChange",
+   "type": "((checked: boolean) => void)",
    "default": "",
    "required": false,
    "description": ""
@@ -602,54 +1267,10 @@
    "description": ""
   }
  ],
- "RadioGroup": [
-  {
-   "name": "legend",
-   "type": "string",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "options",
-   "type": "string[]",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "value",
-   "type": "string",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "onChange",
-   "type": "(v: string) => void",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "orientation",
-   "type": "'vertical' | 'horizontal'",
-   "default": "\"vertical\"",
-   "required": false,
-   "description": ""
-  },
-  {
-   "name": "labels",
-   "type": "Record<string, string>",
-   "default": "",
-   "required": false,
-   "description": ""
-  }
- ],
  "Toggle": [
   {
    "name": "label",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
@@ -658,27 +1279,34 @@
    "name": "checked",
    "type": "boolean",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
-   "name": "onChange",
-   "type": "(c: boolean) => void",
+   "name": "defaultChecked",
+   "type": "boolean",
+   "default": "false",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onCheckedChange",
+   "type": "((checked: boolean) => void)",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
    "name": "onText",
-   "type": "string",
-   "default": "\"On\"",
+   "type": "ReactNode",
+   "default": "",
    "required": false,
    "description": ""
   },
   {
    "name": "offText",
-   "type": "string",
-   "default": "\"Off\"",
+   "type": "ReactNode",
+   "default": "",
    "required": false,
    "description": ""
   },
@@ -695,35 +1323,33 @@
    "default": "",
    "required": false,
    "description": ""
-  }
- ],
- "ContentSwitcher": [
+  },
   {
-   "name": "options",
-   "type": "string[]",
+   "name": "hideLabel",
+   "type": "boolean",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
+  },
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Sends `value` with the form while the switch is on, like a checkbox."
   },
   {
    "name": "value",
    "type": "string",
-   "default": "",
-   "required": true,
+   "default": "\"on\"",
+   "required": false,
    "description": ""
   },
   {
-   "name": "onChange",
-   "type": "(v: string) => void",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "label",
+   "name": "className",
    "type": "string",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   }
  ],
@@ -750,107 +1376,118 @@
    "description": ""
   },
   {
+   "name": "step",
+   "type": "number",
+   "default": "1",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "value",
+   "type": "number",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
    "name": "defaultValue",
    "type": "number",
-   "default": "40",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((value: number) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
    "required": false,
    "description": ""
   },
   {
    "name": "unit",
-   "type": "string",
-   "default": "\"\"",
-   "required": false,
-   "description": ""
-  }
- ],
- "Calendar": [
-  {
-   "name": "value",
-   "type": "Date | null",
+   "type": "ReactNode",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
-   "name": "onPick",
-   "type": "(d: Date) => void",
+   "name": "disabled",
+   "type": "boolean",
    "default": "",
-   "required": true,
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "id",
+   "type": "string",
+   "default": "",
+   "required": false,
    "description": ""
   }
  ],
  "DatePicker": [
   {
    "name": "label",
-   "type": "string",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "helper",
-   "type": "string",
-   "default": "",
-   "required": false,
-   "description": ""
-  }
- ],
- "TimePicker": [
-  {
-   "name": "label",
-   "type": "string",
-   "default": "",
-   "required": true,
-   "description": ""
-  }
- ],
- "FileUploader": [
-  {
-   "name": "title",
-   "type": "string",
-   "default": "\"Upload files\"",
-   "required": false,
-   "description": ""
-  },
-  {
-   "name": "note",
-   "type": "string",
-   "default": "\"Max file size is 5 MB. Supported file types are .pdf, .jpg and .png.\"",
-   "required": false,
-   "description": ""
-  }
- ],
- "FormGroup": [
-  {
-   "name": "legend",
-   "type": "string",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "children",
    "type": "ReactNode",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
    "name": "helper",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
-  }
- ],
- "FluidInput": [
+  },
   {
-   "name": "label",
+   "name": "invalid",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "value",
+   "type": "Date | null",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "Date | null",
+   "default": "null",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((date: Date | null) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "name",
    "type": "string",
    "default": "",
-   "required": true,
-   "description": ""
+   "required": false,
+   "description": "Adds a hidden input with the date as yyyy-mm-dd."
   },
   {
    "name": "placeholder",
@@ -860,30 +1497,179 @@
    "description": ""
   },
   {
-   "name": "invalid",
+   "name": "formatDate",
+   "type": "((date: Date) => string)",
+   "default": "ddmmyyyy",
+   "required": false,
+   "description": "How the chosen date is shown. Defaults to dd/mm/yyyy."
+  },
+  {
+   "name": "min",
+   "type": "Date",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "max",
+   "type": "Date",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "disabled",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "required",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideLabel",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "id",
    "type": "string",
    "default": "",
    "required": false,
    "description": ""
   }
  ],
- "InputGroup": [
+ "TimePicker": [
   {
-   "name": "children",
-   "type": "ReactNode",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "prefix",
+   "name": "label",
    "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
   },
   {
-   "name": "suffix",
+   "name": "helper",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "value",
+   "type": "string | null",
+   "default": "",
+   "required": false,
+   "description": "24-hour \"HH:mm\", or null when empty or not valid yet."
+  },
+  {
+   "name": "defaultValue",
+   "type": "string | null",
+   "default": "null",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((value: string | null) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hour12",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": "Show hh:mm with AM / PM (default) or a 24-hour clock. The value is always 24-hour."
+  },
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Adds a hidden input with the 24-hour value."
+  },
+  {
+   "name": "timeZones",
+   "type": "readonly SelectOption[]",
+   "default": "",
+   "required": false,
+   "description": "Shows a time-zone select when given."
+  },
+  {
+   "name": "timeZone",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultTimeZone",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onTimeZoneChange",
+   "type": "((timeZone: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "disabled",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "required",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "id",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "FluidInput": [
+  {
+   "name": "label",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "invalid",
    "type": "ReactNode",
    "default": "",
    "required": false,
@@ -900,8 +1686,71 @@
   },
   {
    "name": "label",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "helper",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "invalid",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "value",
    "type": "string",
-   "default": "\"Verification code\"",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "string",
+   "default": "\"\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((code: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onComplete",
+   "type": "((code: string) => void)",
+   "default": "",
+   "required": false,
+   "description": "Called once every digit is filled in."
+  },
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Adds a hidden input with the code."
+  },
+  {
+   "name": "disabled",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
    "required": false,
    "description": ""
   }
@@ -909,7 +1758,7 @@
  "Notification": [
   {
    "name": "title",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
@@ -923,10 +1772,17 @@
   },
   {
    "name": "subtitle",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": "Extra content under the subtitle."
   },
   {
    "name": "variant",
@@ -936,8 +1792,15 @@
    "description": ""
   },
   {
-   "name": "action",
-   "type": "string",
+   "name": "actionText",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": "Label of the action button. Shown together with onAction."
+  },
+  {
+   "name": "onAction",
+   "type": "(() => void)",
    "default": "",
    "required": false,
    "description": ""
@@ -947,12 +1810,26 @@
    "type": "(() => void)",
    "default": "",
    "required": false,
-   "description": ""
+   "description": "Shows a close button."
+  },
+  {
+   "name": "timestamp",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": "Toasts: when it happened, for example \"09:30\"."
   },
   {
    "name": "lowContrast",
    "type": "boolean",
    "default": "true",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
    "required": false,
    "description": ""
   }
@@ -966,15 +1843,15 @@
    "description": ""
   },
   {
-   "name": "onClose",
-   "type": "() => void",
+   "name": "onOpenChange",
+   "type": "(open: boolean) => void",
    "default": "",
    "required": true,
    "description": ""
   },
   {
    "name": "heading",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
@@ -988,24 +1865,59 @@
   },
   {
    "name": "label",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
   },
   {
-   "name": "primary",
-   "type": "string",
-   "default": "\"Save\"",
+   "name": "primaryText",
+   "type": "ReactNode",
+   "default": "",
    "required": false,
    "description": ""
   },
   {
-   "name": "secondary",
-   "type": "string",
-   "default": "\"Cancel\"",
+   "name": "secondaryText",
+   "type": "ReactNode",
+   "default": "",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "onPrimaryClick",
+   "type": "(() => void)",
+   "default": "",
+   "required": false,
+   "description": "The primary button. Close the modal yourself when the work is done. Without it, the button just closes."
+  },
+  {
+   "name": "onSecondaryClick",
+   "type": "(() => void)",
+   "default": "",
+   "required": false,
+   "description": "The secondary button. The modal closes afterwards."
+  },
+  {
+   "name": "primaryDisabled",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "primaryLoading",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": "Shows a spinner on the primary button and disables both buttons."
+  },
+  {
+   "name": "formId",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Makes the primary button submit this form (the id of a <form> inside or outside the modal)."
   },
   {
    "name": "danger",
@@ -1018,6 +1930,20 @@
    "name": "size",
    "type": "'sm' | 'md' | 'xs'",
    "default": "\"sm\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "footer",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": "Replace the footer, or pass null for none."
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
    "required": false,
    "description": ""
   }
@@ -1035,7 +1961,7 @@
    "type": "number",
    "default": "",
    "required": false,
-   "description": ""
+   "description": "Leave out for an indeterminate bar."
   },
   {
    "name": "max",
@@ -1046,7 +1972,7 @@
   },
   {
    "name": "helper",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
@@ -1064,12 +1990,19 @@
    "default": "\"big\"",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "ProgressIndicator": [
   {
    "name": "steps",
-   "type": "{ label: string; note?: string; invalid?: boolean; }[]",
+   "type": "readonly { label: ReactNode; note?: ReactNode; invalid?: boolean; }[]",
    "default": "",
    "required": true,
    "description": ""
@@ -1087,6 +2020,13 @@
    "default": "",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Loading": [
@@ -1100,7 +2040,14 @@
   {
    "name": "label",
    "type": "string",
-   "default": "\"Loading\"",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
    "required": false,
    "description": ""
   }
@@ -1115,9 +2062,16 @@
   },
   {
    "name": "text",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
    "description": ""
   }
  ],
@@ -1133,7 +2087,7 @@
  "Tooltip": [
   {
    "name": "label",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
@@ -1151,19 +2105,26 @@
    "default": "\"top\"",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "DefinitionTooltip": [
   {
    "name": "term",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
   },
   {
    "name": "definition",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
@@ -1204,6 +2165,34 @@
    "default": "true",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "open",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultOpen",
+   "type": "boolean",
+   "default": "false",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onOpenChange",
+   "type": "((open: boolean) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Toggletip": [
@@ -1224,6 +2213,13 @@
  ],
  "AILabel": [
   {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
    "name": "size",
    "type": "'sm' | 'md' | 'xs'",
    "default": "\"sm\"",
@@ -1231,8 +2227,15 @@
    "description": ""
   },
   {
-   "name": "children",
+   "name": "title",
    "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
    "default": "",
    "required": false,
    "description": ""
@@ -1240,29 +2243,36 @@
  ],
  "Empty": [
   {
-   "name": "icon",
+   "name": "title",
    "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
   },
   {
-   "name": "title",
-   "type": "string",
+   "name": "icon",
+   "type": "ReactNode",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
    "name": "body",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
    "name": "action",
    "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
    "default": "",
    "required": false,
    "description": ""
@@ -1288,7 +2298,14 @@
    "type": "(() => void)",
    "default": "",
    "required": false,
-   "description": ""
+   "description": "Shows a dismiss button."
+  },
+  {
+   "name": "dismissLabel",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Name for the dismiss button when children isn't plain text."
   },
   {
    "name": "size",
@@ -1300,13 +2317,20 @@
   {
    "name": "selected",
    "type": "boolean",
+   "default": "false",
+   "required": false,
+   "description": "Makes the tag a toggle button (filter chip)."
+  },
+  {
+   "name": "onSelectedChange",
+   "type": "((selected: boolean) => void)",
    "default": "",
    "required": false,
    "description": ""
   },
   {
-   "name": "onSelect",
-   "type": "(() => void)",
+   "name": "className",
+   "type": "string",
    "default": "",
    "required": false,
    "description": ""
@@ -1319,27 +2343,181 @@
    "default": "",
    "required": true,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "DataTable": [
   {
-   "name": "rows",
-   "type": "Row[]",
-   "default": "sampleRows",
+   "name": "columns",
+   "type": "readonly DataTableColumn<T>[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "data",
+   "type": "readonly T[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "getRowId",
+   "type": "((row: T, index: number) => string)",
+   "default": "",
+   "required": false,
+   "description": "A stable id per row. Defaults to row.id, then the row's index."
+  },
+  {
+   "name": "title",
+   "type": "ReactNode",
+   "default": "",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "description",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Accessible name when there is no title."
   },
   {
    "name": "selectable",
    "type": "boolean",
-   "default": "true",
+   "default": "false",
    "required": false,
    "description": ""
   },
   {
-   "name": "zebra",
+   "name": "selectedIds",
+   "type": "string[]",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultSelectedIds",
+   "type": "string[]",
+   "default": "NO_IDS",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onSelectionChange",
+   "type": "((ids: string[]) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "batchActions",
+   "type": "((selected: T[], clearSelection: () => void) => ReactNode)",
+   "default": "",
+   "required": false,
+   "description": "Buttons shown in the toolbar while rows are selected. Plain <button>s get the toolbar styling."
+  },
+  {
+   "name": "filterable",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": "Shows the filter box. Defaults to true."
+  },
+  {
+   "name": "filter",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultFilter",
+   "type": "string",
+   "default": "\"\"",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onFilterChange",
+   "type": "((filter: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "filterPlaceholder",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "sort",
+   "type": "SortState",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultSort",
+   "type": "SortState",
+   "default": "null",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onSortChange",
+   "type": "((sort: SortState) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "manual",
    "type": "boolean",
    "default": "false",
+   "required": false,
+   "description": "Leave filtering and sorting to you, for example on the server: the table\nshows `data` as given and only reports filter / sort changes."
+  },
+  {
+   "name": "toolbar",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": "Extra controls at the end of the toolbar, such as an Export or Add button."
+  },
+  {
+   "name": "loading",
+   "type": "boolean",
+   "default": "false",
+   "required": false,
+   "description": "Shows placeholder rows while data loads."
+  },
+  {
+   "name": "emptyState",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": "Shown when there are no rows and no filter is set."
+  },
+  {
+   "name": "onRowClick",
+   "type": "((row: T) => void)",
+   "default": "",
    "required": false,
    "description": ""
   },
@@ -1351,16 +2529,9 @@
    "description": ""
   },
   {
-   "name": "title",
-   "type": "string",
-   "default": "\"Service requests\"",
-   "required": false,
-   "description": ""
-  },
-  {
-   "name": "description",
-   "type": "string",
-   "default": "\"Requests opened in the last 30 days.\"",
+   "name": "zebra",
+   "type": "boolean",
+   "default": "false",
    "required": false,
    "description": ""
   },
@@ -1370,19 +2541,82 @@
    "default": "\"grey\"",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "StructuredList": [
   {
-   "name": "rows",
-   "type": "{ plan: string; speed: string; price: string; }[]",
+   "name": "columns",
+   "type": "readonly StructuredListColumn<T>[]",
    "default": "",
    "required": true,
    "description": ""
   },
   {
+   "name": "rows",
+   "type": "readonly T[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "getRowId",
+   "type": "((row: T, index: number) => string)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
    "name": "selectable",
    "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": "Lets the user pick one row, like a radio group."
+  },
+  {
+   "name": "value",
+   "type": "string | null",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultValue",
+   "type": "string | null",
+   "default": "null",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((id: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "name",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Radio name, so the chosen row id is sent with a form."
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
    "default": "",
    "required": false,
    "description": ""
@@ -1391,14 +2625,14 @@
  "ContainedList": [
   {
    "name": "label",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
   },
   {
    "name": "items",
-   "type": "string[]",
+   "type": "readonly ContainedListItem[]",
    "default": "",
    "required": true,
    "description": ""
@@ -1409,12 +2643,33 @@
    "default": "",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "onRemove",
+   "type": "((id: string) => void)",
+   "default": "",
+   "required": false,
+   "description": "Shows a remove button on each row. Remove the item from `items` in here."
+  },
+  {
+   "name": "emptyText",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "List": [
   {
    "name": "items",
-   "type": "(string | { text: string; children: string[]; })[]",
+   "type": "readonly ListItem[]",
    "default": "",
    "required": true,
    "description": ""
@@ -1425,12 +2680,19 @@
    "default": "",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "TreeView": [
   {
    "name": "nodes",
-   "type": "TreeNode[]",
+   "type": "readonly TreeNode[]",
    "default": "",
    "required": true,
    "description": ""
@@ -1441,40 +2703,152 @@
    "default": "",
    "required": true,
    "description": ""
+  },
+  {
+   "name": "expanded",
+   "type": "string[]",
+   "default": "",
+   "required": false,
+   "description": "Ids of open folders. A node's id is its `id`, or its labels joined with \"/\"."
+  },
+  {
+   "name": "defaultExpanded",
+   "type": "string[]",
+   "default": "NO_IDS",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onExpandedChange",
+   "type": "((ids: string[]) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "selected",
+   "type": "string | null",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultSelected",
+   "type": "string | null",
+   "default": "null",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onSelectedChange",
+   "type": "((id: string, node: TreeNode) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Tile": [
   {
    "name": "title",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
   },
   {
    "name": "body",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
    "name": "variant",
-   "type": "'base' | 'clickable' | 'selectable' | 'expandable'",
+   "type": "'expandable' | 'base' | 'clickable' | 'selectable'",
    "default": "\"base\"",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "href",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "clickable: renders a link."
+  },
+  {
+   "name": "target",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onClick",
+   "type": "(() => void)",
+   "default": "",
+   "required": false,
+   "description": "clickable: renders a button when there is no href."
   },
   {
    "name": "selected",
    "type": "boolean",
    "default": "",
    "required": false,
+   "description": "selectable"
+  },
+  {
+   "name": "defaultSelected",
+   "type": "boolean",
+   "default": "false",
+   "required": false,
    "description": ""
   },
   {
-   "name": "onSelect",
-   "type": "(() => void)",
+   "name": "onSelectedChange",
+   "type": "((selected: boolean) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "open",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": "expandable"
+  },
+  {
+   "name": "defaultOpen",
+   "type": "boolean",
+   "default": "false",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onOpenChange",
+   "type": "((open: boolean) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": "expandable: the content shown when open."
+  },
+  {
+   "name": "className",
+   "type": "string",
    "default": "",
    "required": false,
    "description": ""
@@ -1483,10 +2857,38 @@
  "Accordion": [
   {
    "name": "items",
-   "type": "{ title: string; body: string; }[]",
+   "type": "readonly AccordionItem[]",
    "default": "",
    "required": true,
    "description": ""
+  },
+  {
+   "name": "value",
+   "type": "string[]",
+   "default": "",
+   "required": false,
+   "description": "Ids of the open items."
+  },
+  {
+   "name": "defaultValue",
+   "type": "string[]",
+   "default": "NO_IDS",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((ids: string[]) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "multiple",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": "Allow more than one open item. Defaults to true."
   },
   {
    "name": "align",
@@ -1508,6 +2910,20 @@
    "default": "",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "headingLevel",
+   "type": "2 | 6 | 3 | 4 | 5",
+   "default": "4",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "CodeSnippet": [
@@ -1524,6 +2940,13 @@
    "default": "\"multi\"",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Attachment": [
@@ -1536,9 +2959,9 @@
   },
   {
    "name": "meta",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
-   "required": true,
+   "required": false,
    "description": ""
   },
   {
@@ -1551,6 +2974,20 @@
   {
    "name": "progress",
    "type": "number",
+   "default": "",
+   "required": false,
+   "description": "0–100. Shows a progress bar until it reaches 100."
+  },
+  {
+   "name": "onRemove",
+   "type": "(() => void)",
+   "default": "",
+   "required": false,
+   "description": "Shows a remove button."
+  },
+  {
+   "name": "className",
+   "type": "string",
    "default": "",
    "required": false,
    "description": ""
@@ -1584,21 +3021,42 @@
    "default": "",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "AvatarGroup": [
   {
    "name": "names",
-   "type": "string[]",
+   "type": "readonly string[]",
    "default": "",
    "required": true,
+   "description": ""
+  },
+  {
+   "name": "max",
+   "type": "number",
+   "default": "3",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
    "description": ""
   }
  ],
  "Item": [
   {
    "name": "title",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
@@ -1612,7 +3070,7 @@
   },
   {
    "name": "description",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
@@ -1630,21 +3088,19 @@
    "default": "\"outline\"",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Carousel": [
   {
    "name": "slides",
-   "type": "{ title: string; body: string; }[]",
-   "default": "",
-   "required": true,
-   "description": ""
-  }
- ],
- "BarChart": [
-  {
-   "name": "data",
-   "type": "{ label: string; a: number; b: number; }[]",
+   "type": "readonly { title: ReactNode; body?: ReactNode; }[]",
    "default": "",
    "required": true,
    "description": ""
@@ -1653,7 +3109,86 @@
    "name": "label",
    "type": "string",
    "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "index",
+   "type": "number",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultIndex",
+   "type": "number",
+   "default": "0",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onIndexChange",
+   "type": "((index: number) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "BarChart": [
+  {
+   "name": "data",
+   "type": "readonly T[]",
+   "default": "",
    "required": true,
+   "description": ""
+  },
+  {
+   "name": "categoryKey",
+   "type": "keyof T & string",
+   "default": "",
+   "required": true,
+   "description": "The field holding each bar group's label (the x axis)."
+  },
+  {
+   "name": "series",
+   "type": "readonly BarSeries<T>[]",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "description",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": "A line under the label, such as the date range."
+  },
+  {
+   "name": "valueFormatter",
+   "type": "((value: number) => string)",
+   "default": "(n) => n.toLocaleString()",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
    "description": ""
   }
  ],
@@ -1678,6 +3213,13 @@
    "default": "",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Marker": [
@@ -1694,6 +3236,13 @@
    "default": "\"divider\"",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Message": [
@@ -1706,7 +3255,7 @@
   },
   {
    "name": "time",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
@@ -1726,9 +3275,44 @@
    "description": ""
   },
   {
+   "name": "text",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Text the copy button copies. Defaults to children when they are plain text; without either, there is no copy button."
+  },
+  {
    "name": "footer",
    "type": "boolean",
    "default": "true",
+   "required": false,
+   "description": "Shows the copy / helpful buttons under messages from others."
+  },
+  {
+   "name": "helpful",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultHelpful",
+   "type": "boolean",
+   "default": "false",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onHelpfulChange",
+   "type": "((helpful: boolean) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
    "required": false,
    "description": ""
   }
@@ -1740,21 +3324,70 @@
    "default": "",
    "required": true,
    "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Trace": [
   {
    "name": "steps",
-   "type": "{ label: string; detail: string; state: 'done' | 'running' | 'pending'; }[]",
+   "type": "readonly TraceStep[]",
    "default": "",
    "required": true,
+   "description": ""
+  },
+  {
+   "name": "summary",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": "The header text. Defaults to \"Checked 2 of 4 steps\"."
+  },
+  {
+   "name": "open",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultOpen",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onOpenChange",
+   "type": "((open: boolean) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
    "description": ""
   }
  ],
  "Tabs": [
   {
    "name": "tabs",
-   "type": "{ label: string; content: ReactNode; disabled?: boolean; }[]",
+   "type": "readonly TabItem[]",
    "default": "",
    "required": true,
    "description": ""
@@ -1772,12 +3405,40 @@
    "default": "\"line\"",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "value",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Id of the open tab."
+  },
+  {
+   "name": "defaultValue",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onValueChange",
+   "type": "((id: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Breadcrumb": [
   {
    "name": "items",
-   "type": "string[]",
+   "type": "readonly BreadcrumbItem[]",
    "default": "",
    "required": true,
    "description": ""
@@ -1788,20 +3449,83 @@
    "default": "true",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Pagination": [
   {
    "name": "total",
    "type": "number",
-   "default": "237",
+   "default": "",
+   "required": true,
+   "description": "Total number of items."
+  },
+  {
+   "name": "page",
+   "type": "number",
+   "default": "",
+   "required": false,
+   "description": "1-based."
+  },
+  {
+   "name": "defaultPage",
+   "type": "number",
+   "default": "1",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onPageChange",
+   "type": "((page: number) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "pageSize",
+   "type": "number",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultPageSize",
+   "type": "number",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onPageSizeChange",
+   "type": "((size: number) => void)",
+   "default": "",
    "required": false,
    "description": ""
   },
   {
    "name": "pageSizes",
-   "type": "number[]",
-   "default": "[10, 20, 50]",
+   "type": "readonly number[]",
+   "default": "PAGE_SIZES",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
    "required": false,
    "description": ""
   }
@@ -1810,7 +3534,42 @@
   {
    "name": "pages",
    "type": "number",
-   "default": "12",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "page",
+   "type": "number",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultPage",
+   "type": "number",
+   "default": "1",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onPageChange",
+   "type": "((page: number) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
    "required": false,
    "description": ""
   }
@@ -1818,14 +3577,7 @@
  "MenuList": [
   {
    "name": "items",
-   "type": "MenuItem[]",
-   "default": "",
-   "required": true,
-   "description": ""
-  },
-  {
-   "name": "onPick",
-   "type": "(l: string) => void",
+   "type": "readonly MenuItem[]",
    "default": "",
    "required": true,
    "description": ""
@@ -1835,13 +3587,27 @@
    "type": "string",
    "default": "",
    "required": true,
+   "description": ""
+  },
+  {
+   "name": "onItemSelect",
+   "type": "((item: MenuItem) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
    "description": ""
   }
  ],
  "OverflowMenu": [
   {
    "name": "items",
-   "type": "MenuItem[]",
+   "type": "readonly MenuItem[]",
    "default": "",
    "required": true,
    "description": ""
@@ -1849,13 +3615,13 @@
   {
    "name": "label",
    "type": "string",
-   "default": "\"Options\"",
+   "default": "",
    "required": false,
    "description": ""
   },
   {
-   "name": "onPick",
-   "type": "((l: string) => void)",
+   "name": "onItemSelect",
+   "type": "((item: MenuItem) => void)",
    "default": "",
    "required": false,
    "description": ""
@@ -1873,6 +3639,13 @@
    "default": "true",
    "required": false,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "MenuButton": [
@@ -1885,7 +3658,7 @@
   },
   {
    "name": "items",
-   "type": "MenuItem[]",
+   "type": "readonly MenuItem[]",
    "default": "",
    "required": true,
    "description": ""
@@ -1898,8 +3671,15 @@
    "description": ""
   },
   {
-   "name": "onPick",
-   "type": "((l: string) => void)",
+   "name": "onItemSelect",
+   "type": "((item: MenuItem) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
    "default": "",
    "required": false,
    "description": ""
@@ -1908,7 +3688,7 @@
  "ContextMenuArea": [
   {
    "name": "items",
-   "type": "MenuItem[]",
+   "type": "readonly MenuItem[]",
    "default": "",
    "required": true,
    "description": ""
@@ -1919,38 +3699,138 @@
    "default": "",
    "required": true,
    "description": ""
+  },
+  {
+   "name": "onItemSelect",
+   "type": "((item: MenuItem) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Menubar": [
   {
    "name": "menus",
-   "type": "{ label: string; items: MenuItem[]; }[]",
+   "type": "readonly { label: string; items: readonly MenuItem[]; }[]",
    "default": "",
    "required": true,
+   "description": ""
+  },
+  {
+   "name": "onItemSelect",
+   "type": "((item: MenuItem, menu: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
    "description": ""
   }
  ],
  "NavigationMenu": [
   {
    "name": "items",
-   "type": "{ label: string; links?: { title: string; body: string; }[]; }[]",
+   "type": "readonly NavigationMenuItem[]",
    "default": "",
    "required": true,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
    "description": ""
   }
  ],
  "Command": [
   {
    "name": "groups",
-   "type": "{ heading: string; items: { label: string; icon?: ReactNode; shortcut?: string; }[]; }[]",
+   "type": "readonly { heading: string; items: readonly CommandItem[]; }[]",
    "default": "",
    "required": true,
    "description": ""
   },
   {
+   "name": "onItemSelect",
+   "type": "((item: CommandItem) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
    "name": "placeholder",
    "type": "string",
-   "default": "\"Type a command or search…\"",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "emptyText",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  }
+ ],
+ "UIShellAction": [
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "icon",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": ""
+  },
+  {
+   "name": "onClick",
+   "type": "(() => void)",
+   "default": "",
    "required": false,
    "description": ""
   }
@@ -1958,15 +3838,99 @@
  "UIShell": [
   {
    "name": "product",
-   "type": "string",
+   "type": "ReactNode",
    "default": "\"ScopeSky\"",
    "required": false,
    "description": ""
   },
   {
    "name": "portal",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "homeHref",
    "type": "string",
-   "default": "\"Customer portal\"",
+   "default": "\"/\"",
+   "required": false,
+   "description": "Where the product name links to."
+  },
+  {
+   "name": "headerLinks",
+   "type": "readonly { label: ReactNode; href: string; }[]",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "actions",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": "Buttons at the end of the header, for example <UIShellAction>."
+  },
+  {
+   "name": "navItems",
+   "type": "readonly UIShellNavItem[]",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "activeItem",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": "Id of the current side-nav item."
+  },
+  {
+   "name": "defaultActiveItem",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onActiveItemChange",
+   "type": "((id: string) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "navOpen",
+   "type": "boolean",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "defaultNavOpen",
+   "type": "boolean",
+   "default": "true",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onNavOpenChange",
+   "type": "((open: boolean) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": "The page content."
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
    "required": false,
    "description": ""
   }
@@ -1981,36 +3945,64 @@
   },
   {
    "name": "onOpenChange",
-   "type": "(o: boolean) => void",
+   "type": "(open: boolean) => void",
    "default": "",
    "required": true,
    "description": ""
   },
   {
    "name": "title",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
   },
   {
    "name": "description",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
   },
   {
-   "name": "cancel",
-   "type": "string",
-   "default": "\"Cancel\"",
+   "name": "onAction",
+   "type": "() => void | Promise<unknown>",
+   "default": "",
+   "required": true,
+   "description": "Runs when the action button is pressed. The dialog closes afterwards. If it\nreturns a promise, the buttons wait for it, and the dialog stays open if it rejects."
+  },
+  {
+   "name": "onCancel",
+   "type": "(() => void)",
+   "default": "",
+   "required": false,
+   "description": "Runs when the user cancels (button, Escape). The dialog closes either way."
+  },
+  {
+   "name": "cancelText",
+   "type": "ReactNode",
+   "default": "",
    "required": false,
    "description": ""
   },
   {
-   "name": "action",
+   "name": "actionText",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "tone",
+   "type": "'primary' | 'danger'",
+   "default": "\"danger\"",
+   "required": false,
+   "description": "\"danger\" (default) for destructive actions."
+  },
+  {
+   "name": "className",
    "type": "string",
-   "default": "\"Delete\"",
+   "default": "",
    "required": false,
    "description": ""
   }
@@ -2025,14 +4017,14 @@
   },
   {
    "name": "onOpenChange",
-   "type": "(o: boolean) => void",
+   "type": "(open: boolean) => void",
    "default": "",
    "required": true,
    "description": ""
   },
   {
    "name": "title",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
@@ -2045,15 +4037,8 @@
    "description": ""
   },
   {
-   "name": "side",
-   "type": "'right' | 'left'",
-   "default": "\"right\"",
-   "required": false,
-   "description": ""
-  },
-  {
    "name": "description",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
@@ -2062,6 +4047,20 @@
    "name": "footer",
    "type": "ReactNode",
    "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "side",
+   "type": "'right' | 'left'",
+   "default": "\"right\"",
    "required": false,
    "description": ""
   }
@@ -2076,14 +4075,14 @@
   },
   {
    "name": "onOpenChange",
-   "type": "(o: boolean) => void",
+   "type": "(open: boolean) => void",
    "default": "",
    "required": true,
    "description": ""
   },
   {
    "name": "title",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
@@ -2097,7 +4096,7 @@
   },
   {
    "name": "description",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": false,
    "description": ""
@@ -2105,6 +4104,13 @@
   {
    "name": "footer",
    "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
    "default": "",
    "required": false,
    "description": ""
@@ -2124,6 +4130,27 @@
    "default": "",
    "required": true,
    "description": ""
+  },
+  {
+   "name": "openDelay",
+   "type": "number",
+   "default": "300",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "closeDelay",
+   "type": "number",
+   "default": "150",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "AspectRatio": [
@@ -2140,28 +4167,77 @@
    "default": "",
    "required": true,
    "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "Collapsible": [
   {
    "name": "title",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
    "required": true,
    "description": ""
+  },
+  {
+   "name": "children",
+   "type": "ReactNode",
+   "default": "",
+   "required": true,
+   "description": "The part that opens and closes."
   },
   {
    "name": "preview",
-   "type": "string",
+   "type": "ReactNode",
    "default": "",
-   "required": true,
+   "required": false,
+   "description": "Always visible, above the part that opens."
+  },
+  {
+   "name": "open",
+   "type": "boolean",
+   "default": "",
+   "required": false,
    "description": ""
   },
   {
-   "name": "rest",
-   "type": "string[]",
+   "name": "defaultOpen",
+   "type": "boolean",
+   "default": "false",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onOpenChange",
+   "type": "((open: boolean) => void)",
    "default": "",
-   "required": true,
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "showText",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "hideText",
+   "type": "ReactNode",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
    "description": ""
   }
  ],
@@ -2179,6 +4255,55 @@
    "default": "",
    "required": true,
    "description": ""
+  },
+  {
+   "name": "size",
+   "type": "number",
+   "default": "",
+   "required": false,
+   "description": "Width of the start panel, in percent."
+  },
+  {
+   "name": "defaultSize",
+   "type": "number",
+   "default": "40",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "onSizeChange",
+   "type": "((size: number) => void)",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "min",
+   "type": "number",
+   "default": "20",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "max",
+   "type": "number",
+   "default": "80",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "label",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
   }
  ],
  "ScrollArea": [
@@ -2191,6 +4316,13 @@
   },
   {
    "name": "className",
+   "type": "string",
+   "default": "",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "label",
    "type": "string",
    "default": "",
    "required": false,
@@ -2209,6 +4341,13 @@
    "name": "decorative",
    "type": "boolean",
    "default": "true",
+   "required": false,
+   "description": ""
+  },
+  {
+   "name": "className",
+   "type": "string",
+   "default": "",
    "required": false,
    "description": ""
   }

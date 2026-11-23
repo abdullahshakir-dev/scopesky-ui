@@ -110,7 +110,7 @@ export default function Home() {
               <b className="font-semibold">One package for every project.</b> <code className="rounded-md bg-layer px-1 font-mono text-[13px]">npm i @scopesky/ui</code>. Every component is written by hand in React and styled with Tailwind CSS, with no third-party UI code.
             </>,
             <>
-              <b className="font-semibold">Own icon set.</b> Each icon is a plain SVG file in <code className="rounded-md bg-layer px-1 font-mono text-[13px]">packages/ui/icons</code>, built into the package and drawn in the current text color.
+              <b className="font-semibold">Lucide icons, built in.</b> 95 icons from <a href="https://lucide.dev" className="text-link hover:underline">Lucide</a> (ISC license), kept as plain SVG files in <code className="rounded-md bg-layer px-1 font-mono text-[13px]">packages/ui/icons</code> and drawn in the current text color.
             </>,
             <>
               <b className="font-semibold">ScopeSky blues.</b> Buttons and links use Blue 700 (#006B9B) so white text meets WCAG AA; Sky Blue (#0094DA) is the brand accent.

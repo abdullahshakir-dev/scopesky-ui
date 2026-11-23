@@ -2,15 +2,18 @@
 
 import { useState, type ReactNode } from "react";
 import {
+  Bell,
   Bold,
   Calendar,
   CreditCard,
   Download,
   FileSearch,
+  Grid3x3,
   Inbox,
   Italic,
   Mail,
   Plus,
+  Search as SearchIcon,
   Settings,
   Share2,
   Smile,
@@ -73,6 +76,7 @@ import {
   PaginationNav,
   Tabs,
   UIShell,
+  UIShellAction,
 } from "@scopesky/ui/navigation";
 import {
   Accordion,
@@ -91,6 +95,7 @@ import {
   Tile,
   TreeView,
 } from "@scopesky/ui/data";
+import { requestColumns, requests } from "./sample-data";
 import { AlertDialog, AspectRatio, Collapsible, Drawer, HoverCard, Resizable, ScrollArea, Separator, Sheet } from "@scopesky/ui/overlays";
 import { Bubble, Marker, Message, MessageScroller, Trace } from "@scopesky/ui/conversation";
 
@@ -212,7 +217,7 @@ export const demos: Record<string, Demo> = {
     ),
   },
   "button-group": {
-    render: (_, { t }) => <State name="range" initial={t("Week", "أسبوع")}>{(v, s) => <ButtonGroup label={t("Range", "المدة")} options={[t("Day", "يوم"), t("Week", "أسبوع"), t("Month", "شهر")]} value={v} onChange={s} />}</State>,
+    render: (_, { t }) => <State name="range" initial={t("Week", "أسبوع")}>{(v, s) => <ButtonGroup label={t("Range", "المدة")} options={[t("Day", "يوم"), t("Week", "أسبوع"), t("Month", "شهر")]} value={v} onValueChange={s} />}</State>,
   },
   "toggle-button": {
     render: (_, { t }) => (
@@ -302,7 +307,7 @@ export const demos: Record<string, Demo> = {
   multiselect: {
     render: (_, { t }) => (
       <div className="w-full max-w-xs">
-        <MultiSelect label={t("Notify me about", "أبلغني عن")} options={["Outages", "Invoices", "New offers", "Maintenance", "Security alerts"]} initial={["Outages", "Invoices"]} />
+        <MultiSelect label={t("Notify me about", "أبلغني عن")} options={["Outages", "Invoices", "New offers", "Maintenance", "Security alerts"]} defaultValue={["Outages", "Invoices"]} />
       </div>
     ),
     minH: 320,
@@ -313,7 +318,18 @@ export const demos: Record<string, Demo> = {
     minH: 400,
     layout: "start",
   },
-  "time-picker": { render: (_, { t }) => <TimePicker label={t("Preferred visit time", "وقت الزيارة المفضل")} /> },
+  "time-picker": {
+    render: (_, { t }) => (
+      <TimePicker
+        label={t("Preferred visit time", "وقت الزيارة المفضل")}
+        defaultValue="09:30"
+        timeZones={[
+          { value: "Asia/Baghdad", label: t("Baghdad (GMT+3)", "بغداد (GMT+3)") },
+          { value: "UTC", label: "UTC" },
+        ]}
+      />
+    ),
+  },
   slider: {
     render: (_, { t }) => (
       <div className="w-full max-w-md">
@@ -321,7 +337,17 @@ export const demos: Record<string, Demo> = {
       </div>
     ),
   },
-  "file-uploader": { render: (_, { t }) => <FileUploader title={t("Upload documents", "رفع المستندات")} /> },
+  "file-uploader": {
+    render: (_, { t }) => (
+      <FileUploader
+        title={t("Upload documents", "رفع المستندات")}
+        note={t("Max file size is 5 MB. Supported file types are .pdf, .jpg and .png.", "الحد الأقصى لحجم الملف 5 ميجابايت. الأنواع المدعومة: ‎.pdf و‎.jpg و‎.png.")}
+        accept=".pdf,.jpg,.jpeg,.png"
+        maxSize={5_000_000}
+        name="documents"
+      />
+    ),
+  },
   "form-group": {
     render: (_, { t }) => (
       <div className="w-full max-w-sm">
@@ -414,7 +440,7 @@ export const demos: Record<string, Demo> = {
   dropdown: {
     render: (_, { t }) => (
       <div className="w-full max-w-xs">
-        <Dropdown label={t("Plan", "الباقة")} options={["Home 50 Mbps", "Home 100 Mbps", "Business fiber 100", "Business fiber 500"]} initial="Home 100 Mbps" />
+        <Dropdown label={t("Plan", "الباقة")} options={["Home 50 Mbps", "Home 100 Mbps", "Business fiber 100", "Business fiber 500"]} defaultValue="Home 100 Mbps" />
       </div>
     ),
     minH: 320,
@@ -436,13 +462,13 @@ export const demos: Record<string, Demo> = {
           return (
             <fieldset className="flex flex-col gap-3">
               <legend className="mb-1 text-xs text-ink-2">{t("Notifications", "الإشعارات")}</legend>
-              <Checkbox label={t("All channels", "كل القنوات")} checked={all} indeterminate={!all && some} onChange={(c) => s({ a: c, b: c, c: c })} />
+              <Checkbox label={t("All channels", "كل القنوات")} checked={all} indeterminate={!all && some} onCheckedChange={(c) => s({ a: c, b: c, c: c })} />
               <div className="flex flex-col gap-3 ps-6">
-                <Checkbox label={t("Email", "البريد الإلكتروني")} checked={v.a} onChange={(a) => s({ ...v, a })} />
-                <Checkbox label="SMS" checked={v.b} onChange={(b) => s({ ...v, b })} />
-                <Checkbox label={t("Push notifications", "الإشعارات الفورية")} checked={v.c} onChange={(c) => s({ ...v, c })} />
+                <Checkbox label={t("Email", "البريد الإلكتروني")} checked={v.a} onCheckedChange={(a) => s({ ...v, a })} />
+                <Checkbox label="SMS" checked={v.b} onCheckedChange={(b) => s({ ...v, b })} />
+                <Checkbox label={t("Push notifications", "الإشعارات الفورية")} checked={v.c} onCheckedChange={(c) => s({ ...v, c })} />
               </div>
-              <Checkbox label={t("Paper invoices (not available)", "فواتير ورقية (غير متاحة)")} checked={false} onChange={() => {}} disabled />
+              <Checkbox label={t("Paper invoices (not available)", "فواتير ورقية (غير متاحة)")} checked={false} disabled />
             </fieldset>
           );
         }}
@@ -457,10 +483,13 @@ export const demos: Record<string, Demo> = {
           <RadioGroup
             legend={t("Billing cycle", "دورة الفوترة")}
             orientation={v.orientation as "vertical"}
-            options={["Monthly", "Quarterly", "Yearly"]}
-            labels={{ Monthly: t("Monthly", "شهرياً"), Quarterly: t("Quarterly", "كل ثلاثة أشهر"), Yearly: t("Yearly", "سنوياً") }}
+            options={[
+              { value: "Monthly", label: t("Monthly", "شهرياً") },
+              { value: "Quarterly", label: t("Quarterly", "كل ثلاثة أشهر") },
+              { value: "Yearly", label: t("Yearly", "سنوياً") },
+            ]}
             value={val}
-            onChange={s}
+            onValueChange={s}
           />
         )}
       </State>
@@ -473,7 +502,7 @@ export const demos: Record<string, Demo> = {
     ],
     render: (v, { t }) => (
       <State name="autoPay" initial={true}>
-        {(c, s) => <Toggle label={t("Auto-pay invoices", "الدفع التلقائي للفواتير")} checked={c} onChange={s} size={v.size as "md"} disabled={!!v.disabled} onText={t("On", "مفعّل")} offText={t("Off", "متوقف")} />}
+        {(c, s) => <Toggle label={t("Auto-pay invoices", "الدفع التلقائي للفواتير")} checked={c} onCheckedChange={s} size={v.size as "md"} disabled={!!v.disabled} onText={t("On", "مفعّل")} offText={t("Off", "متوقف")} />}
       </State>
     ),
   },
@@ -482,7 +511,7 @@ export const demos: Record<string, Demo> = {
       <State name="view" initial={t("Usage", "الاستهلاك")}>
         {(v, s) => (
           <div className="flex w-full max-w-md flex-col gap-4">
-            <ContentSwitcher label={t("View", "العرض")} options={[t("Usage", "الاستهلاك"), t("Invoices", "الفواتير"), t("Devices", "الأجهزة")]} value={v} onChange={s} />
+            <ContentSwitcher label={t("View", "العرض")} options={[t("Usage", "الاستهلاك"), t("Invoices", "الفواتير"), t("Devices", "الأجهزة")]} value={v} onValueChange={s} />
             <p className="text-sm text-ink-2">{t("Showing", "عرض")}: {v}</p>
           </div>
         )}
@@ -508,7 +537,7 @@ export const demos: Record<string, Demo> = {
       const [title, sub] = copy[v.kind as string];
       return (
         <div className="w-full max-w-xl">
-          <Notification kind={v.kind as Kind} variant={v.variant as "inline"} lowContrast={!!v.lowContrast} title={title} subtitle={sub} action={v.withAction ? t("Try again", "حاول مجدداً") : undefined} onClose={() => {}} />
+          <Notification kind={v.kind as Kind} variant={v.variant as "inline"} lowContrast={!!v.lowContrast} title={title} subtitle={sub} actionText={v.withAction ? t("Try again", "حاول مجدداً") : undefined} onAction={v.withAction ? () => {} : undefined} timestamp={v.variant === "toast" ? "09:30" : undefined} onClose={() => {}} />
         </div>
       );
     },
@@ -527,13 +556,14 @@ export const demos: Record<string, Demo> = {
             </Button>
             <Modal
               open={open}
-              onClose={() => set(false)}
+              onOpenChange={set}
+              onPrimaryClick={() => set(false)}
               danger={!!v.danger}
               size={v.size as "sm"}
               label={t("Account", "الحساب")}
               heading={v.danger ? t("Cancel your subscription?", "إلغاء اشتراكك؟") : t("Change your plan", "تغيير باقتك")}
-              primary={v.danger ? t("Cancel subscription", "إلغاء الاشتراك") : t("Change plan", "تغيير الباقة")}
-              secondary={v.danger ? t("Keep subscription", "الإبقاء على الاشتراك") : t("Cancel", "إلغاء")}
+              primaryText={v.danger ? t("Cancel subscription", "إلغاء الاشتراك") : t("Change plan", "تغيير الباقة")}
+              secondaryText={v.danger ? t("Keep subscription", "الإبقاء على الاشتراك") : t("Cancel", "إلغاء")}
             >
               {v.danger
                 ? t("Service stops at the end of this billing cycle, on 30 November. You can rejoin any time.", "تتوقف الخدمة في نهاية دورة الفوترة الحالية في 30 نوفمبر. يمكنك العودة في أي وقت.")
@@ -657,8 +687,8 @@ export const demos: Record<string, Demo> = {
         <p className="text-sm font-semibold">{t("Display", "العرض")}</p>
         <p className="mt-1 text-sm text-ink-2">{t("Choose what shows in the table.", "اختر ما يظهر في الجدول.")}</p>
         <div className="mt-3 flex flex-col gap-2">
-          <Checkbox label={t("Show archived", "إظهار المؤرشف")} checked={false} onChange={() => {}} />
-          <Checkbox label={t("Compact rows", "صفوف مضغوطة")} checked onChange={() => {}} />
+          <Checkbox label={t("Show archived", "إظهار المؤرشف")} />
+          <Checkbox label={t("Compact rows", "صفوف مضغوطة")} defaultChecked />
         </div>
       </Popover>
     ),
@@ -673,7 +703,11 @@ export const demos: Record<string, Demo> = {
           <p className="text-sm font-semibold text-ink">{t("Ticket summary", "ملخص التذكرة")}</p>
           <p className="mt-1 text-sm text-ink-2">{t("Customer reports slow speeds after 8 pm. Likely congestion on node BGD-14.", "يبلغ العميل عن بطء بعد الساعة 8 مساءً. يُرجّح ازدحام على العقدة BGD-14.")}</p>
         </div>
-        <AILabel size={v.size as "sm"} />
+        <AILabel size={v.size as "sm"}>
+          <p className="text-2xl">84%</p>
+          <p className="text-sm font-semibold">{t("Confidence score", "درجة الثقة")}</p>
+          <p className="text-sm text-ink-2">{t("This summary was generated from the last 30 days of support tickets. Check the source records before acting on it.", "أُنشئ هذا الملخص من تذاكر الدعم في آخر 30 يوماً. راجع السجلات الأصلية قبل التصرف بناءً عليه.")}</p>
+        </AILabel>
       </div>
     ),
     minH: 340,
@@ -694,7 +728,37 @@ export const demos: Record<string, Demo> = {
   },
 
   /* Navigation */
-  "ui-shell": { render: () => <UIShell />, layout: "stretch" },
+  "ui-shell": {
+    render: (_, { t }) => (
+      <UIShell
+        className="h-72"
+        portal={t("Customer portal", "بوابة العملاء")}
+        homeHref="#"
+        headerLinks={[
+          { label: t("Plans", "الباقات"), href: "#" },
+          { label: t("Coverage", "التغطية"), href: "#" },
+          { label: t("Help", "المساعدة"), href: "#" },
+        ]}
+        actions={
+          <>
+            <UIShellAction label={t("Search", "بحث")} icon={<SearchIcon />} />
+            <UIShellAction label={t("Notifications", "الإشعارات")} icon={<Bell />} />
+            <UIShellAction label={t("App switcher", "تبديل التطبيقات")} icon={<Grid3x3 />} />
+          </>
+        }
+        navItems={[
+          { id: "dashboard", label: t("Dashboard", "لوحة التحكم") },
+          { id: "services", label: t("Services", "الخدمات") },
+          { id: "requests", label: t("Requests", "الطلبات") },
+          { id: "invoices", label: t("Invoices", "الفواتير") },
+        ]}
+      >
+        <h3 className="text-2xl text-ink">{t("Dashboard", "لوحة التحكم")}</h3>
+        <p className="mt-1 text-sm text-ink-2">{t("Your page content goes here.", "يظهر محتوى صفحتك هنا.")}</p>
+      </UIShell>
+    ),
+    layout: "stretch",
+  },
   tabs: {
     controls: [{ name: "variant", type: "select", options: ["line", "contained"], default: "line" }],
     render: (v, { t }) => (
@@ -714,10 +778,10 @@ export const demos: Record<string, Demo> = {
     ),
   },
   breadcrumb: {
-    render: (_, { t }) => <Breadcrumb items={[t("Home", "الرئيسية"), t("Services", "الخدمات"), t("Business fiber", "الألياف للأعمال"), "SR-20481"]} />,
+    render: (_, { t }) => <Breadcrumb items={[{ label: t("Home", "الرئيسية"), href: "#" }, { label: t("Services", "الخدمات"), href: "#" }, { label: t("Business fiber", "الألياف للأعمال"), href: "#" }, "SR-20481"]} />,
   },
-  pagination: { render: () => <div className="w-full max-w-2xl"><Pagination /></div> },
-  "pagination-nav": { render: () => <PaginationNav /> },
+  pagination: { render: () => <div className="w-full max-w-2xl"><Pagination total={237} /></div> },
+  "pagination-nav": { render: () => <PaginationNav pages={12} defaultPage={4} /> },
   command: {
     render: (_, { t }) => (
       <Command
@@ -738,7 +802,7 @@ export const demos: Record<string, Demo> = {
   },
   "context-menu": {
     render: (_, { t }) => (
-      <ContextMenuArea items={[{ label: t("Back", "رجوع"), shortcut: "Alt ←" }, { label: t("Reload", "إعادة تحميل"), shortcut: "Ctrl R" }, { label: "d", divider: true }, { label: t("Save as…", "حفظ باسم…"), shortcut: "Ctrl S" }, { label: t("Print…", "طباعة…"), shortcut: "Ctrl P" }]}>
+      <ContextMenuArea className="flex h-44 w-full max-w-md select-none flex-col items-center justify-center gap-1 rounded-box border border-dashed border-line-strong text-sm text-ink-2" items={[{ label: t("Back", "رجوع"), shortcut: "Alt ←" }, { label: t("Reload", "إعادة تحميل"), shortcut: "Ctrl R" }, { label: "d", divider: true }, { label: t("Save as…", "حفظ باسم…"), shortcut: "Ctrl S" }, { label: t("Print…", "طباعة…"), shortcut: "Ctrl P" }]}>
         <span>{t("Right-click here", "انقر بزر الفأرة الأيمن هنا")}</span>
         <span className="text-xs">{t("or focus and press Shift + F10", "أو ركّز واضغط Shift + F10")}</span>
       </ContextMenuArea>
@@ -765,14 +829,14 @@ export const demos: Record<string, Demo> = {
           {
             label: t("Home internet", "الإنترنت المنزلي"),
             links: [
-              { title: t("Fiber plans", "باقات الألياف"), body: t("Up to 1 Gbps with free installation.", "حتى 1 جيجابت مع تركيب مجاني.") },
-              { title: t("Wireless plans", "الباقات اللاسلكية"), body: t("For areas without fiber yet.", "للمناطق التي لا تصلها الألياف بعد.") },
-              { title: t("Coverage map", "خريطة التغطية"), body: t("Check what is available at your address.", "تحقق مما هو متاح في عنوانك.") },
-              { title: t("Add-ons", "الإضافات"), body: t("Static IP, mesh Wi-Fi and more.", "IP ثابت وشبكة Wi-Fi ممتدة والمزيد.") },
+              { title: t("Fiber plans", "باقات الألياف"), body: t("Up to 1 Gbps with free installation.", "حتى 1 جيجابت مع تركيب مجاني."), href: "#" },
+              { title: t("Wireless plans", "الباقات اللاسلكية"), body: t("For areas without fiber yet.", "للمناطق التي لا تصلها الألياف بعد."), href: "#" },
+              { title: t("Coverage map", "خريطة التغطية"), body: t("Check what is available at your address.", "تحقق مما هو متاح في عنوانك."), href: "#" },
+              { title: t("Add-ons", "الإضافات"), body: t("Static IP, mesh Wi-Fi and more.", "IP ثابت وشبكة Wi-Fi ممتدة والمزيد."), href: "#" },
             ],
           },
-          { label: t("Business", "الأعمال"), links: [{ title: t("Dedicated lines", "خطوط مخصصة"), body: t("Guaranteed bandwidth with an SLA.", "سعة مضمونة مع اتفاقية مستوى خدمة.") }, { title: t("Cloud backup", "النسخ الاحتياطي السحابي"), body: t("Daily backups kept in Iraq.", "نسخ يومية محفوظة داخل العراق.") }] },
-          { label: t("Support", "الدعم") },
+          { label: t("Business", "الأعمال"), links: [{ title: t("Dedicated lines", "خطوط مخصصة"), body: t("Guaranteed bandwidth with an SLA.", "سعة مضمونة مع اتفاقية مستوى خدمة."), href: "#" }, { title: t("Cloud backup", "النسخ الاحتياطي السحابي"), body: t("Daily backups kept in Iraq.", "نسخ يومية محفوظة داخل العراق."), href: "#" }] },
+          { label: t("Support", "الدعم"), href: "#" },
         ]}
       />
     ),
@@ -788,15 +852,36 @@ export const demos: Record<string, Demo> = {
       { name: "useZebraStyles", type: "boolean", default: false },
       { name: "radio", type: "boolean", default: true, label: "Selectable rows" },
     ],
-    render: (v, { t }) => <DataTable size={v.size as "lg"} tone={v.tone as "grey"} zebra={!!v.useZebraStyles} selectable={!!v.radio} title={t("Service requests", "طلبات الخدمة")} description={t("Requests opened in the last 30 days.", "الطلبات المفتوحة خلال آخر 30 يوماً.")} />,
+    render: (v, { t }) => (
+      <DataTable
+        columns={requestColumns(t)}
+        data={requests}
+        size={v.size as "lg"}
+        tone={v.tone as "grey"}
+        zebra={!!v.useZebraStyles}
+        selectable={!!v.radio}
+        title={t("Service requests", "طلبات الخدمة")}
+        description={t("Requests opened in the last 30 days.", "الطلبات المفتوحة خلال آخر 30 يوماً.")}
+        filterPlaceholder={t("Filter requests", "تصفية الطلبات")}
+        batchActions={() => <button type="button">{t("Export", "تصدير")}</button>}
+      />
+    ),
     layout: "stretch",
   },
   "structured-list": {
     controls: [{ name: "selection", type: "boolean", default: false }],
-    render: (v) => (
+    render: (v, { t }) => (
       <div className="w-full max-w-lg">
         <StructuredList
           selectable={!!v.selection}
+          label={t("Plans", "الباقات")}
+          getRowId={(r) => r.plan}
+          defaultValue="Home 50"
+          columns={[
+            { key: "plan", header: t("Plan", "الباقة") },
+            { key: "speed", header: t("Speed", "السرعة") },
+            { key: "price", header: t("Price", "السعر") },
+          ]}
           rows={[
             { plan: "Home 50", speed: "50 Mbps", price: "25,000 IQD" },
             { plan: "Home 100", speed: "100 Mbps", price: "35,000 IQD" },
@@ -808,15 +893,21 @@ export const demos: Record<string, Demo> = {
   },
   "contained-list": {
     render: (_, { t }) => (
+      <State name="contacts" initial={["Sara Hassan", "Omar Kareem", "Layla Abbas", "Yusuf Nouri"]}>
+        {(list, set) => (
       <ContainedList
         label={t("Account contacts", "جهات اتصال الحساب")}
-        items={["Sara Hassan", "Omar Kareem", "Layla Abbas", "Yusuf Nouri"]}
+        items={list}
+        onRemove={(id) => set(list.filter((x) => x !== id))}
+        emptyText={t("No contacts left. Add one to get updates.", "لم تبقَ جهات اتصال. أضف واحدة لتصلك التحديثات.")}
         action={
           <button type="button" aria-label={t("Add contact", "إضافة جهة اتصال")} className="inline-flex size-8 items-center justify-center text-ink hover:bg-layer-hover">
             <Plus className="size-4" />
           </button>
         }
       />
+        )}
+      </State>
     ),
   },
   list: {
@@ -832,6 +923,8 @@ export const demos: Record<string, Demo> = {
     render: (_, { t }) => (
       <TreeView
         label={t("Documents", "المستندات")}
+        defaultExpanded={["Contracts"]}
+        defaultSelected="Contracts/2026"
         nodes={[
           { label: "Contracts", children: [{ label: "2026", children: [{ label: "al-noor-clinic.pdf" }, { label: "rafidain.pdf" }] }, { label: "2025" }] },
           { label: "Invoices", children: [{ label: "november.pdf" }, { label: "october.pdf" }] },
@@ -851,7 +944,9 @@ export const demos: Record<string, Demo> = {
               [t("Business fiber", "الألياف للأعمال"), t("Dedicated line, 99.9% uptime and 24/7 support.", "خط مخصص وتوفر 99.9% ودعم على مدار الساعة.")],
               [t("Home fiber", "الألياف المنزلية"), t("Up to 1 Gbps with free installation.", "حتى 1 جيجابت مع تركيب مجاني.")],
             ].map(([title, body], i) => (
-              <Tile key={title} title={title} body={body} variant={v.variant as "base"} selected={sel === i} onSelect={() => set(i)} />
+              <Tile key={title} title={title} body={body} variant={v.variant as "base"} href={v.variant === "clickable" ? "#" : undefined} selected={sel === i} onSelectedChange={() => set(i)}>
+                {t("Includes a static IP, priority repair within 4 hours and a monthly usage report.", "يشمل عنوان IP ثابتاً وإصلاحاً ذا أولوية خلال 4 ساعات وتقرير استهلاك شهرياً.")}
+              </Tile>
             ))}
           </div>
         )}
@@ -866,7 +961,7 @@ export const demos: Record<string, Demo> = {
     ],
     render: (v, { t }) => (
       <div className="w-full max-w-xl">
-        <Accordion items={faq(t)} align={v.align as "end"} size={v.size as "md"} flush={!!v.flush} />
+        <Accordion items={faq(t)} defaultValue={["0"]} align={v.align as "end"} size={v.size as "md"} flush={!!v.flush} />
       </div>
     ),
   },
@@ -885,7 +980,7 @@ export const demos: Record<string, Demo> = {
             </Tag>
             <div className="flex flex-wrap justify-center gap-2" aria-label={t("Filter by service", "تصفية حسب الخدمة")}>
               {["Fiber", "Wireless", "Business", "Home", "Cloud"].map((x) => (
-                <Tag key={x} selected={sel.includes(x)} onSelect={() => set(sel.includes(x) ? sel.filter((y) => y !== x) : [...sel, x])}>
+                <Tag key={x} selected={sel.includes(x)} onSelectedChange={() => set(sel.includes(x) ? sel.filter((y) => y !== x) : [...sel, x])}>
                   {x}
                 </Tag>
               ))}
@@ -907,7 +1002,7 @@ export const demos: Record<string, Demo> = {
   attachment: {
     render: () => (
       <div className="flex w-full max-w-sm flex-col gap-3">
-        <Attachment name="contract-signed.pdf" meta="PDF · 812 KB" />
+        <Attachment name="contract-signed.pdf" meta="PDF · 812 KB" onRemove={() => {}} />
         <Attachment name="site-photo.jpg" meta="JPG · 2.4 MB" kind="image" progress={64} />
       </div>
     ),
@@ -938,13 +1033,19 @@ export const demos: Record<string, Demo> = {
     render: (_, { t }) => (
       <BarChart
         label={t("New subscriptions", "اشتراكات جديدة")}
+        description={t("Jun – Nov 2026", "يونيو – نوفمبر 2026")}
+        categoryKey="month"
+        series={[
+          { key: "business", label: t("Business", "الأعمال") },
+          { key: "home", label: t("Home", "المنازل") },
+        ]}
         data={[
-          { label: "Jun", a: 120, b: 210 },
-          { label: "Jul", a: 140, b: 260 },
-          { label: "Aug", a: 165, b: 240 },
-          { label: "Sep", a: 190, b: 300 },
-          { label: "Oct", a: 210, b: 330 },
-          { label: "Nov", a: 260, b: 310 },
+          { month: "Jun", business: 120, home: 210 },
+          { month: "Jul", business: 140, home: 260 },
+          { month: "Aug", business: 165, home: 240 },
+          { month: "Sep", business: 190, home: 300 },
+          { month: "Oct", business: 210, home: 330 },
+          { month: "Nov", business: 260, home: 310 },
         ]}
       />
     ),
@@ -1005,8 +1106,9 @@ export const demos: Record<string, Demo> = {
               onOpenChange={set}
               title={t("Delete this request?", "حذف هذا الطلب؟")}
               description={t("This permanently removes REQ-2051 and its history. You can't undo this.", "سيؤدي هذا إلى حذف الطلب REQ-2051 وسجله نهائياً. لا يمكنك التراجع عن ذلك.")}
-              cancel={t("Cancel", "إلغاء")}
-              action={t("Delete", "حذف")}
+              cancelText={t("Cancel", "إلغاء")}
+              actionText={t("Delete", "حذف")}
+              onAction={() => {}}
             />
           </>
         )}
@@ -1121,7 +1223,16 @@ export const demos: Record<string, Demo> = {
     },
   },
   collapsible: {
-    render: (_, { t }) => <Collapsible title={t("3 devices connected", "3 أجهزة متصلة")} preview="Living-room TV · 192.168.1.12" rest={["Sara's laptop · 192.168.1.20", "Kitchen speaker · 192.168.1.31"]} />,
+    render: (_, { t }) => (
+      <Collapsible
+        title={t("3 devices connected", "3 أجهزة متصلة")}
+        showText={t("Show 2 more", "عرض 2 إضافيين")}
+        preview={<div className="rounded-lg border border-line-2 px-4 py-2 font-mono text-sm text-ink">Living-room TV · 192.168.1.12</div>}
+      >
+        <div className="rounded-lg border border-line-2 px-4 py-2 font-mono text-sm text-ink">Sara&apos;s laptop · 192.168.1.20</div>
+        <div className="rounded-lg border border-line-2 px-4 py-2 font-mono text-sm text-ink">Kitchen speaker · 192.168.1.31</div>
+      </Collapsible>
+    ),
   },
   resizable: { render: (_, { t }) => <Resizable start={t("Requests", "الطلبات")} end={t("Details", "التفاصيل")} /> },
   "scroll-area": {

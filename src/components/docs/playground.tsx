@@ -3,6 +3,7 @@
 import { useId, useMemo, useState } from "react";
 import { ChevronDown, Languages, Maximize2, Minimize2, RotateCcw } from "@scopesky/ui/icons";
 import { cn } from "@scopesky/ui/utils";
+import { LocaleProvider, arMessages } from "@scopesky/ui/locale";
 import type { ComponentDoc } from "@/lib/types";
 import { sourceOf } from "@/lib/source-map";
 import { CodeBlock } from "./code-block";
@@ -49,7 +50,7 @@ export function PreviewCanvas({
       )}
       style={compact ? undefined : { minHeight: demo.minH ?? 280 }}
     >
-      {demo.render(v, ctx)}
+      <LocaleProvider messages={rtl ? arMessages : undefined}>{demo.render(v, ctx)}</LocaleProvider>
     </div>
   );
 }

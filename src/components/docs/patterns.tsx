@@ -8,7 +8,9 @@ import { Checkbox, Dropdown, FileUploader, FormGroup, PasswordInput, RadioGroup,
 import { Empty, Notification, ProgressIndicator } from "@scopesky/ui/feedback";
 import { DataTable } from "@scopesky/ui/data";
 import { Pagination, Tabs } from "@scopesky/ui/navigation";
-import { Sheet, sBtn } from "@scopesky/ui/overlays";
+import { Sheet } from "@scopesky/ui/overlays";
+import { LocaleProvider, arMessages } from "@scopesky/ui/locale";
+import { requestColumns, requests } from "./sample-data";
 import type { UITheme } from "./playground";
 
 type T = (en: string, ar: string) => string;
@@ -32,7 +34,7 @@ export function PatternFrame({ children, defaultRtl = false, title }: { children
         </button>
       </div>
       <div data-ui-theme={theme} dir={rtl ? "rtl" : "ltr"} lang={rtl ? "ar" : "en"} className="bg-layer text-ink">
-        {children(t)}
+        <LocaleProvider messages={rtl ? arMessages : undefined}>{children(t)}</LocaleProvider>
       </div>
     </section>
   );
@@ -75,11 +77,11 @@ export function SignInPattern() {
                 </p>
               </div>
               {error && <Notification kind="error" title={t("Sign-in failed", "فشل تسجيل الدخول")} subtitle={t("The number or password is wrong. Try again or reset your password.", "الرقم أو كلمة المرور غير صحيحة. حاول مجدداً أو أعد تعيين كلمة المرور.")} onClose={() => setError(false)} />}
-              <RadioGroup legend={t("Sign in with", "تسجيل الدخول بواسطة")} orientation="horizontal" options={["Phone", "Email"]} labels={{ Phone: t("Phone", "الهاتف"), Email: t("Email", "البريد الإلكتروني") }} value={method} onChange={setMethod} />
+              <RadioGroup legend={t("Sign in with", "تسجيل الدخول بواسطة")} orientation="horizontal" options={[{ value: "Phone", label: t("Phone", "الهاتف") }, { value: "Email", label: t("Email", "البريد الإلكتروني") }]} value={method} onValueChange={setMethod} />
               {method === "Phone" ? <TextInput label={t("Phone number", "رقم الهاتف")} placeholder="0770 000 0000" inputMode="tel" dir="ltr" /> : <TextInput label={t("Email address", "البريد الإلكتروني")} placeholder="name@example.com" type="email" dir="ltr" />}
               <PasswordInput label={t("Password", "كلمة المرور")} />
               <div className="flex items-center justify-between">
-                <Checkbox label={t("Remember me", "تذكرني")} checked onChange={() => {}} />
+                <Checkbox label={t("Remember me", "تذكرني")} name="remember" defaultChecked />
                 <a href="#" onClick={(e) => e.preventDefault()} className="text-sm text-link hover:underline">
                   {t("Forgot password?", "نسيت كلمة المرور؟")}
                 </a>
@@ -118,8 +120,8 @@ export function DataViewPattern() {
           <Tabs
             label={t("Request status", "حالة الطلب")}
             tabs={[
-              { label: t("All", "الكل") + " (6)", content: <DataTable title={t("All requests", "كل الطلبات")} description={t("Sorted by newest first.", "مرتبة من الأحدث.")} zebra /> },
-              { label: t("Open", "مفتوحة") + " (3)", content: <DataTable title={t("Open requests", "الطلبات المفتوحة")} description="" tone="sky" /> },
+              { label: t("All", "الكل") + " (6)", content: <DataTable columns={requestColumns(t)} data={requests} selectable title={t("All requests", "كل الطلبات")} description={t("Sorted by newest first.", "مرتبة من الأحدث.")} zebra /> },
+              { label: t("Open", "مفتوحة") + " (3)", content: <DataTable columns={requestColumns(t)} data={requests.filter((r) => r.status !== "Active")} selectable title={t("Open requests", "الطلبات المفتوحة")} tone="sky" /> },
               { label: t("Closed", "مغلقة") + " (3)", content: <Empty icon={<Inbox />} title={t("No closed requests this month", "لا طلبات مغلقة هذا الشهر")} body={t("Closed requests stay here for 12 months.", "تبقى الطلبات المغلقة هنا 12 شهراً.")} /> },
             ]}
           />
@@ -131,12 +133,12 @@ export function DataViewPattern() {
             description={t("We reply within one working day.", "نرد خلال يوم عمل واحد.")}
             footer={
               <>
-                <button type="button" className={sBtn.outline} onClick={() => setSheet(false)}>
+                <Button kind="tertiary" size="md" onClick={() => setSheet(false)}>
                   {t("Cancel", "إلغاء")}
-                </button>
-                <button type="button" className={sBtn.primary} onClick={() => setSheet(false)}>
+                </Button>
+                <Button size="md" onClick={() => setSheet(false)}>
                   {t("Send request", "إرسال الطلب")}
-                </button>
+                </Button>
               </>
             }
           >
@@ -177,7 +179,7 @@ export function RequestFormPattern() {
               </div>
             </FormGroup>
             <FormGroup legend={t("Request", "الطلب")}>
-              <Dropdown label={t("Request type", "نوع الطلب")} options={["New line", "Move my line", "Upgrade plan", "Fault report"]} initial="Upgrade plan" />
+              <Dropdown label={t("Request type", "نوع الطلب")} options={["New line", "Move my line", "Upgrade plan", "Fault report"]} defaultValue="Upgrade plan" name="requestType" />
               <TextArea label={t("Details", "التفاصيل")} placeholder={t("Tell us what you need", "أخبرنا بما تحتاجه")} maxCount={500} />
             </FormGroup>
             <FileUploader title={t("Supporting documents", "مستندات داعمة")} />
@@ -208,9 +210,9 @@ export function EmptyStatesPattern() {
               title={t("No requests yet", "لا توجد طلبات بعد")}
               body={t("When you open a service request, it shows up here with its status.", "عندما تفتح طلب خدمة، يظهر هنا مع حالته.")}
               action={
-                <button type="button" className={sBtn.primary}>
-                  <Plus className="size-4" /> {t("New request", "طلب جديد")}
-                </button>
+                <Button size="md" icon={<Plus />}>
+                  {t("New request", "طلب جديد")}
+                </Button>
               }
             />
           </div>
@@ -221,9 +223,9 @@ export function EmptyStatesPattern() {
               title={t("Nothing matches “fibre 2”", "لا شيء يطابق “fibre 2”")}
               body={t("Check the spelling, or remove a filter to see more requests.", "تحقق من الإملاء، أو أزل عامل تصفية لرؤية المزيد.")}
               action={
-                <button type="button" className={sBtn.outline}>
-                  <Filter className="size-4" /> {t("Clear filters", "مسح عوامل التصفية")}
-                </button>
+                <Button size="md" kind="tertiary" icon={<Filter />}>
+                  {t("Clear filters", "مسح عوامل التصفية")}
+                </Button>
               }
             />
           </div>

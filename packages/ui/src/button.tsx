@@ -1,8 +1,10 @@
 "use client";
 
-import { forwardRef, useState, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { forwardRef, useEffect, useRef, useState, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type ReactNode } from "react";
 import { Check, Copy } from "./icons.js";
-import { cn, copyText } from "./utils.js";
+import { cn, copyText, normalizeOptions, type SelectOption } from "./utils.js";
+import { useControllableState } from "./hooks.js";
+import { useMessages } from "./locale.js";
 
 export type ButtonKind =
   | "primary"
@@ -73,103 +75,122 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   );
 });
 
-export function ButtonGroup({
-  options,
-  value,
-  onChange,
-  label,
-}: {
-  options: string[];
-  value: string;
-  onChange: (v: string) => void;
+export interface ButtonGroupProps {
+  options: readonly SelectOption[];
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
   label: string;
-}) {
+  className?: string;
+}
+
+export function ButtonGroup({ options, value, defaultValue, onValueChange, label, className }: ButtonGroupProps) {
+  const opts = normalizeOptions(options);
+  const [v, setV] = useControllableState(value, defaultValue ?? opts[0]?.value ?? "", onValueChange);
   return (
-    <div role="group" aria-label={label} className="inline-flex overflow-hidden rounded-box border border-line-2">
-      {options.map((o, i) => (
+    <div role="group" aria-label={label} className={cn("inline-flex overflow-hidden rounded-box border border-line-2", className)}>
+      {opts.map((o, i) => (
         <button
-          key={o}
+          key={o.value}
           type="button"
-          aria-pressed={value === o}
-          onClick={() => onChange(o)}
+          aria-pressed={v === o.value}
+          disabled={o.disabled}
+          onClick={() => setV(o.value)}
           className={cn(
-            "h-9 px-4 text-sm transition-colors focus-visible:outline-offset-[-2px]",
+            "h-9 px-4 text-sm transition-colors focus-visible:outline-offset-[-2px] disabled:cursor-not-allowed disabled:text-placeholder",
             i > 0 && "border-s border-line-2",
-            value === o ? "bg-inverse text-inverse-ink" : "bg-bg text-ink hover:bg-layer-hover",
+            v === o.value ? "bg-inverse text-inverse-ink" : "bg-bg text-ink hover:bg-layer-hover",
           )}
         >
-          {o}
+          {o.label}
         </button>
       ))}
     </div>
   );
 }
 
-export function ToggleButton({
-  pressed,
-  onPressedChange,
-  label,
-  children,
-}: {
-  pressed: boolean;
-  onPressedChange: (p: boolean) => void;
+export interface ToggleButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> {
+  pressed?: boolean;
+  defaultPressed?: boolean;
+  onPressedChange?: (pressed: boolean) => void;
+  /** Accessible name and tooltip; the button usually shows only an icon. */
   label: string;
   children: ReactNode;
-}) {
+}
+
+export const ToggleButton = forwardRef<HTMLButtonElement, ToggleButtonProps>(function ToggleButton(
+  { pressed, defaultPressed = false, onPressedChange, label, children, className, ...rest },
+  ref,
+) {
+  const [p, setP] = useControllableState(pressed, defaultPressed, onPressedChange);
   return (
     <button
+      ref={ref}
       type="button"
-      aria-pressed={pressed}
+      aria-pressed={p}
       aria-label={label}
       title={label}
-      onClick={() => onPressedChange(!pressed)}
+      onClick={() => setP(!p)}
       className={cn(
-        "inline-flex size-10 items-center justify-center rounded-box border transition-colors [&>svg]:size-4",
-        pressed ? "border-primary bg-tint text-primary" : "border-line-2 bg-bg text-ink hover:bg-layer-hover",
+        "inline-flex size-10 items-center justify-center rounded-box border transition-colors disabled:cursor-not-allowed disabled:opacity-50 [&>svg]:size-4",
+        p ? "border-primary bg-tint text-primary" : "border-line-2 bg-bg text-ink hover:bg-layer-hover",
+        className,
       )}
+      {...rest}
     >
       {children}
     </button>
   );
-}
+});
 
-export function CopyButton({ value, label = "Copy" }: { value: string; label?: string }) {
+export function CopyButton({ value, label, onCopy, className }: { value: string; label?: string; onCopy?: (ok: boolean) => void; className?: string }) {
+  const m = useMessages();
   const [done, setDone] = useState(false);
+  const t = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(t.current), []);
+  const name = done ? m.copied : (label ?? m.copy);
   return (
     <button
       type="button"
       onClick={async () => {
-        await copyText(value);
+        const ok = await copyText(value);
+        onCopy?.(ok);
+        if (!ok) return;
         setDone(true);
-        setTimeout(() => setDone(false), 1600);
+        clearTimeout(t.current);
+        t.current = setTimeout(() => setDone(false), 1600);
       }}
-      aria-label={done ? "Copied" : label}
-      title={done ? "Copied" : label}
-      className="relative inline-flex size-8 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-layer-hover hover:text-ink"
+      aria-label={name}
+      title={name}
+      className={cn("relative inline-flex size-8 items-center justify-center rounded-lg text-ink-2 transition-colors hover:bg-layer-hover hover:text-ink", className)}
     >
       {done ? <Check className="size-4 text-success" /> : <Copy className="size-4" />}
       <span aria-live="polite" className="sr-only">
-        {done ? "Copied" : ""}
+        {done ? m.copied : ""}
       </span>
     </button>
   );
 }
 
-export function Link({ href = "#", children, inline, icon, onClick }: { href?: string; children: ReactNode; inline?: boolean; icon?: ReactNode; onClick?: () => void }) {
+export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  inline?: boolean;
+  icon?: ReactNode;
+}
+
+/** A styled <a>. Every anchor prop (href, target, onClick, ref …) passes through. */
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link({ inline, icon, className, children, ...rest }, ref) {
   return (
     <a
-      href={href}
-      onClick={(e) => {
-        if (href === "#") e.preventDefault();
-        onClick?.();
-      }}
+      ref={ref}
       className={cn(
         "inline-flex items-center gap-1 text-sm text-link hover:text-link-hover hover:underline active:underline",
         inline && "underline",
+        className,
       )}
+      {...rest}
     >
       {children}
       {icon && <span className="[&>svg]:size-4">{icon}</span>}
     </a>
   );
-}
+});

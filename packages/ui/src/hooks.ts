@@ -1,6 +1,31 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
+
+/**
+ * State that works both ways: controlled when `value` is defined, uncontrolled
+ * (starting from `defaultValue`) otherwise. `onChange` fires on every change
+ * made through the setter, in both modes.
+ */
+export function useControllableState<T>(
+  value: T | undefined,
+  defaultValue: T,
+  onChange?: (value: T) => void,
+): [T, (next: T | ((prev: T) => T)) => void] {
+  const [inner, setInner] = useState(defaultValue);
+  const controlled = value !== undefined;
+  const current = controlled ? (value as T) : inner;
+  const set = useCallback(
+    (next: T | ((prev: T) => T)) => {
+      const v = typeof next === "function" ? (next as (prev: T) => T)(current) : next;
+      if (Object.is(v, current)) return;
+      if (!controlled) setInner(v);
+      onChange?.(v);
+    },
+    [controlled, current, onChange],
+  );
+  return [current, set];
+}
 
 /** Calls `onAway` when a pointer goes down outside `ref`, or Escape is pressed. */
 export function useDismiss<T extends HTMLElement>(open: boolean, onAway: () => void): RefObject<T | null> {

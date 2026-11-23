@@ -1,7 +1,7 @@
 {
   "name": "@scopesky/ui",
-  "version": "2.2.1",
-  "description": "ScopeSky design system for React: 80+ hand-written components styled with Tailwind CSS v4, ScopeSky color tokens, light and dark themes, Arabic / RTL support and 95 SVG icons. No third-party UI dependencies.",
+  "version": "3.0.0",
+  "description": "ScopeSky design system for React: 80+ components styled with Tailwind CSS v4, ScopeSky color tokens, light and dark themes, Arabic / RTL support and 95 Lucide icons. No runtime dependencies.",
   "keywords": [
     "scopesky",
     "react",
@@ -35,7 +35,8 @@
     "icons",
     "styles.css",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -75,6 +76,10 @@
     "./hooks": {
       "types": "./dist/hooks.d.ts",
       "default": "./dist/hooks.js"
+    },
+    "./locale": {
+      "types": "./dist/locale.d.ts",
+      "default": "./dist/locale.js"
     },
     "./icons": {
       "types": "./dist/icons.d.ts",
