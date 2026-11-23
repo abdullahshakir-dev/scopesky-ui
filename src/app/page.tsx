@@ -116,7 +116,7 @@ export default function Home() {
               <b className="font-semibold">ScopeSky blues.</b> Buttons and links use Blue 700 (#006B9B) so white text meets WCAG AA; Sky Blue (#0094DA) is the brand accent.
             </>,
             <>
-              <b className="font-semibold">Arabic and RTL first.</b> Every preview can switch to Arabic copy in a right-to-left layout set in Geist and Readex Pro.
+              <b className="font-semibold">Arabic and RTL first.</b> Every preview can switch to Arabic copy in a right-to-left layout set in IBM Plex Sans Arabic.
             </>,
             <>
               <b className="font-semibold">One source of truth.</b> Colors live in <code className="rounded-md bg-layer px-1 font-mono text-[13px]">src/lib/tokens.ts</code>; the theme, this site and the token exports all follow it.

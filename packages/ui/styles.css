@@ -193,7 +193,9 @@
   --color-info-bg: var(--info-bg);
   --color-info-text: var(--info-text);
 
-  --font-sans: var(--font-geist, ui-sans-serif), var(--font-readex, system-ui), sans-serif;
+  /* IBM Plex Sans Arabic covers Arabic and Latin. The variable comes from next/font;
+     the quoted name catches it when loaded another way (@fontsource, Google Fonts link). */
+  --font-sans: var(--font-plex-arabic, "IBM Plex Sans Arabic"), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono, ui-monospace), "SFMono-Regular", monospace;
 
   --animate-rise: rise 900ms cubic-bezier(0.2, 0.7, 0.1, 1) both;

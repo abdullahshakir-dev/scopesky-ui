@@ -178,8 +178,20 @@ notice with the icons if you copy them elsewhere.
 
 - Dark mode: `<html data-theme="dark">`.
 - Arabic: `<html lang="ar" dir="rtl">`. Components use logical properties and mirror on their own.
-- Fonts: the styles use `--font-geist`, `--font-readex` and `--font-geist-mono`
-  when they exist (for example from `next/font/google`), and system fonts otherwise.
+- Fonts: text uses **IBM Plex Sans Arabic** (Arabic and Latin), code uses Geist Mono.
+  The package doesn't bundle them. Load them in your app, either with `next/font/google`
+  as the variables `--font-plex-arabic` and `--font-geist-mono`:
+
+  ```tsx
+  import { Geist_Mono, IBM_Plex_Sans_Arabic } from "next/font/google";
+
+  const plex = IBM_Plex_Sans_Arabic({ variable: "--font-plex-arabic", subsets: ["arabic", "latin"], weight: ["300", "400", "500", "600", "700"] });
+  const mono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+  // <html className={`${plex.variable} ${mono.variable}`}>
+  ```
+
+  or any other way (`@fontsource/ibm-plex-sans-arabic`, a Google Fonts link): the styles
+  also look for the family name "IBM Plex Sans Arabic". Without it, system fonts are used.
 
 ## Developing the library
 

@@ -10,7 +10,7 @@ export default function TypographyPage() {
       <PageHeader
         eyebrow={<span className="font-semibold text-eyebrow">Foundations</span>}
         title="Typography"
-        lead="Geist for Latin, Readex Pro for Arabic and Geist Mono for code. Headings stay light and large; weight is saved for labels and emphasis."
+        lead="IBM Plex Sans Arabic for Arabic and Latin, Geist Mono for code. Headings stay light and large; weight is saved for labels and emphasis."
       />
 
       <section className="mt-14 grid gap-px overflow-hidden rounded-box bg-line sm:grid-cols-2">

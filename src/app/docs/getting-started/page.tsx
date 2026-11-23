@@ -38,7 +38,7 @@ export default function Page() {
   },
   {
     title: "Fonts, dark mode and Arabic",
-    body: "Load Geist and Readex Pro with next/font as --font-geist and --font-readex to match this site (system fonts are used otherwise). Set data-theme=\"dark\" on <html> for dark mode, and lang plus dir for Arabic.",
+    body: "Load IBM Plex Sans Arabic with next/font as --font-plex-arabic (and Geist Mono as --font-geist-mono) to match this site (system fonts are used otherwise). Set data-theme=\"dark\" on <html> for dark mode, and lang plus dir for Arabic.",
     code: `<html lang="ar" dir="rtl" data-theme="dark">`,
     lang: "HTML",
   },

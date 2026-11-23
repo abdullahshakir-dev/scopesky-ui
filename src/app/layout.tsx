@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Readex_Pro } from "next/font/google";
+import { Geist_Mono, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { SiteHeader } from "@/components/docs/site-header";
 import { Sidebar } from "@/components/docs/sidebar";
 import { themeScript } from "@/components/docs/theme";
 import "./globals.css";
 
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-// Geist has no Arabic glyphs; Readex Pro fills them in through the font stack.
-const readex = Readex_Pro({
-  variable: "--font-readex",
-  subsets: ["arabic"],
+// The Figma font. It covers both Arabic and Latin. It isn't a variable font,
+// so list every weight the site uses (light, regular, medium, semibold, bold).
+const plex = IBM_Plex_Sans_Arabic({
+  variable: "--font-plex-arabic",
+  subsets: ["arabic", "latin"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -31,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning className={`${geist.variable} ${readex.variable} ${geistMono.variable}`}>
+    <html lang="en" data-theme="light" suppressHydrationWarning className={`${plex.variable} ${geistMono.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
