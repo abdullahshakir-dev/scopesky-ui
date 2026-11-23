@@ -75,7 +75,7 @@ jobs:
         with:
           fetch-depth: 0 # full history, so old commits are scanned too
 
-      - uses: trufflesecurity/trufflehog@v3.100.0
+      - uses: trufflesecurity/trufflehog@v3.100.1
         with:
           extra_args: --results=verified,unknown
 
